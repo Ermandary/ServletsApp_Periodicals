@@ -5,6 +5,8 @@ import com.ermanadary.dao.SubscriptionDao;
 import com.ermanadary.entity.Subscription;
 import com.ermanadary.entity.SubscriptionInfo;
 import com.ermanadary.entity.SubscriptionPeriod;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
@@ -12,6 +14,8 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class MySqlSubscriptionDao implements SubscriptionDao {
+
+    private static final Logger log = LogManager.getLogger(MySqlSubscriptionDao.class);
 
     private static final String SQL_FIND_SUBSCRIPTIONS_BY_USER_ID = "SELECT * FROM subscriptions WHERE user_id=? AND subscription_status=true";
     private static final String SQL_FIND_SUBSCRIPTION = "SELECT * FROM subscriptions WHERE user_id=? AND periodical_id=? AND subscription_status=true";
@@ -23,7 +27,6 @@ public class MySqlSubscriptionDao implements SubscriptionDao {
 
     @Override
     public boolean addSubscription(Subscription subscription) {
-        System.out.println("addSubscriptuionMethod...");
         boolean result = false;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -50,11 +53,9 @@ public class MySqlSubscriptionDao implements SubscriptionDao {
 
             rs.close();
             pstmt.close();
-
-            System.out.println("subscription added...");
         } catch (SQLException ex) {
             DBManager.getInstance().rollback(con);
-            ex.printStackTrace();
+            log.error("Can`t add subscription", ex);
         } finally {
             DBManager.getInstance().close(con);
         }
@@ -63,7 +64,6 @@ public class MySqlSubscriptionDao implements SubscriptionDao {
 
     @Override
     public List<Subscription> findSubscriptionsByUserId(long userId) {
-        System.out.println("findAllSubscriptions...");
         List<Subscription> subscriptions = new CopyOnWriteArrayList<>();
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -85,15 +85,15 @@ public class MySqlSubscriptionDao implements SubscriptionDao {
 
         } catch (SQLException ex) {
             DBManager.getInstance().rollback(con);
+            log.error("Can`t find subscription bu user id", ex);
+        } finally {
             DBManager.getInstance().close(con);
-            ex.printStackTrace();
         }
         return subscriptions;
     }
 
     @Override
     public boolean isSubscribed(long userId, long periodicalId) {
-        System.out.println("is subscribed starts...");
         boolean result = false;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -116,14 +116,14 @@ public class MySqlSubscriptionDao implements SubscriptionDao {
 
         } catch (SQLException ex) {
             DBManager.getInstance().rollback(con);
+            log.error("Can`t find subscribed...", ex);
+        } finally {
             DBManager.getInstance().close(con);
-            ex.printStackTrace();
         }
         return result;
     }
 
-    public List<SubscriptionInfo> getSubscriptionsInfo(long userId){
-        System.out.println("find subscriptions info");
+    public List<SubscriptionInfo> getSubscriptionsInfo(long userId) {
         List<SubscriptionInfo> subscriptionsInfo = new CopyOnWriteArrayList<>();
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -142,20 +142,17 @@ public class MySqlSubscriptionDao implements SubscriptionDao {
             con.commit();
             rs.close();
             pstmt.close();
-
         } catch (SQLException ex) {
             DBManager.getInstance().rollback(con);
+            log.error("Can`t get subscriptions info", ex);
+        } finally {
             DBManager.getInstance().close(con);
-            ex.printStackTrace();
         }
         return subscriptionsInfo;
     }
 
 
-
-
     private Subscription extractSubscription(ResultSet rs) throws SQLException {
-        System.out.println("starting extract subscription...");
         Subscription subscription = new Subscription();
         subscription.setId(rs.getLong("subscription_id"));
         subscription.setStatus(rs.getBoolean("subscription_status"));
@@ -168,7 +165,6 @@ public class MySqlSubscriptionDao implements SubscriptionDao {
     }
 
     private SubscriptionInfo extractSubscriptionsInfo(ResultSet rs) throws SQLException {
-        System.out.println("starting extract subscriptions info...");
         SubscriptionInfo subscriptionInfo = new SubscriptionInfo();
         subscriptionInfo.setPeriodicalName(rs.getString("periodical_name"));
         subscriptionInfo.setPeriodicalType(rs.getString("periodical_type"));

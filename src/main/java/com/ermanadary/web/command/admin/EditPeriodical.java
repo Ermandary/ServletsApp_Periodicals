@@ -6,6 +6,8 @@ import com.ermanadary.dao.PeriodicalDao;
 import com.ermanadary.entity.Periodical;
 import com.ermanadary.web.Path;
 import com.ermanadary.web.command.Command;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,16 +15,19 @@ import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 
 public class EditPeriodical implements Command {
+
+    private static final Logger log = LogManager.getLogger(EditPeriodical.class);
+
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DBException {
-        System.out.println("EditPeriodical...");
+        log.debug("EditPeriodicalCommand starts");
+
         HttpSession session = req.getSession();
         Periodical periodical = null;
+        String methodName = req.getMethod();
+        log.trace("input method ==> " + methodName);
 
-        String methodthodName = req.getMethod();
-        System.out.println("input method ==> " + methodthodName);
-
-        if (methodthodName.equals("GET")) {
+        if (methodName.equals("GET")) {
             long periodicalId = Long.parseLong(req.getParameter("periodicalId"));
             periodical = DaoFactory.createPeriodicalDao().findPeriodicalById(periodicalId);
             session.setAttribute("periodical", periodical);
@@ -30,49 +35,26 @@ public class EditPeriodical implements Command {
             return Path.PAGE_EDIT_PERIODICAL;
         }
 
-//        System.out.println(session.getAttribute("periodicalId"));
-//        long periodicalId = (Long)(session.getAttribute("periodicalId"));
-//        Periodical periodical = DaoFactory.createPeriodicalDao().findPeriodicalById(periodicalId);
-//
-//        if (methodthodName.equals("GET")) {
-//            session.setAttribute("periodical", periodical);
-//            session.setAttribute("periodicalId", periodicalId);
-//            return Path.PAGE_EDIT_PERIODICAL;
-//        }
-
-        System.out.println("изменяем издание");
-
         String periodicalName = req.getParameter("periodicalName");
-        System.out.println("periodical name ==> " + periodicalName);
+        log.trace("periodical name ==> " + periodicalName);
 
         String periodicalType = req.getParameter("periodicalType");
-        System.out.println("periodical type ==> " + periodicalType);
+        log.trace("periodical type ==> " + periodicalType);
 
         String publisher = req.getParameter("publisher");
-        System.out.println("publisher ==> " + publisher);
+        log.trace("publisher ==> " + publisher);
 
         String frequency = req.getParameter("frequency");
-        System.out.println("frequency ==> " + frequency);
-
-        System.out.println(req.getParameter("periodicalPrice"));
+        log.trace("frequency ==> " + frequency);
 
         String priceStr = req.getParameter("periodicalPrice");
+        log.trace("priceStr==> " + priceStr);
 
         BigDecimal price = new BigDecimal(req.getParameter("periodicalPrice"));
-
-
-//        BigDecimal price = new BigDecimal("0.0");
-//        if (priceStr.contains(".")) {
-//            price = BigDecimal.valueOf(Double.parseDouble(req.getParameter("periodicalPrice")));
-//        } else {
-//            price = new BigDecimal(Integer.parseInt(req.getParameter("periodicalPrice")));
-//        }
-
-//        BigDecimal price = new BigDecimal(Integer.parseInt(req.getParameter("periodicalPrice")));
-        System.out.println(price);
+        log.trace("price ==> " + price);
 
         String description = req.getParameter("periodicalDescription");
-        System.out.println(description);
+        log.trace("description ==> " + description);
 
         periodical = new Periodical();
         periodical.setId((Long) session.getAttribute("periodicalId"));
@@ -86,6 +68,7 @@ public class EditPeriodical implements Command {
         PeriodicalDao periodicalDao = DaoFactory.createPeriodicalDao();
         periodicalDao.updatePeriodical(periodical);
 
+        log.debug("EditPeriodicalCommand finished");
         return Path.COMMAND_MAIN_PAGE;
     }
 }

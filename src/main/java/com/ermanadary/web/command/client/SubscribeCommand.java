@@ -5,31 +5,38 @@ import com.ermanadary.dao.DaoFactory;
 import com.ermanadary.entity.User;
 import com.ermanadary.web.Path;
 import com.ermanadary.web.command.Command;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class SubscribeCommand implements Command {
+
+    private static final Logger log = LogManager.getLogger(SubscribeCommand.class);
+
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DBException {
-        System.out.println("SubscribeCommand");
+        log.debug("SubscribeCommand starts");
         HttpSession session = req.getSession();
 
-        System.out.println("id перед преобразованием ==> " + req.getParameter("periodicalId"));
+        String periodicalIdStr = req.getParameter("periodicalId");
+        log.trace("periodicalIdStr ==> " + periodicalIdStr);
         long periodicalId = Long.parseLong(req.getParameter("periodicalId"));
+        log.trace("periodicalId ==> " + periodicalId);
+
         User user = (User) session.getAttribute("user");
         long userId = user.getId();
 
-        if(DaoFactory.createSubscriptionDao().isSubscribed(userId, periodicalId)) {
+        if (DaoFactory.createSubscriptionDao().isSubscribed(userId, periodicalId)) {
+            log.warn("user is already subscribed, forward to error page");
             return Path.PAGE_ERROR;
         }
 
-
-        System.out.println("id == > " + periodicalId);
-
         session.setAttribute("periodical", DaoFactory.createPeriodicalDao().findPeriodicalById(periodicalId));
 
+        log.debug("SubscribeCommand finished");
         return Path.PAGE_SUBSCRIBE;
     }
 }

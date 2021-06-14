@@ -4,17 +4,21 @@ import com.ermanadary.dao.DBManager;
 import com.ermanadary.dao.PaymentDao;
 import com.ermanadary.entity.Payment;
 import com.ermanadary.entity.Subscription;
+import com.ermanadary.web.filter.AccessFilter;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 
 public class MySqlPaymentDao implements PaymentDao {
+
+    private static final Logger log = LogManager.getLogger(MySqlPaymentDao.class);
 
     private static final String INSERT_PAYMENT = "INSERT INTO payments VALUES(DEFAULT, ?, ?, ?, ?)";
     private static final String INSERT_SUBSCRIPTION = "INSERT INTO subscriptions VALUES(DEFAULT, ?, ?, ?, ?, ?, ?)";
 
     @Override
     public boolean addPayment(Payment payment) {
-        System.out.println("addPaymentMethod");
         boolean result = false;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -39,11 +43,9 @@ public class MySqlPaymentDao implements PaymentDao {
             result = true;
             rs.close();
             pstmt.close();
-
-            System.out.println("payment added...");
         } catch (SQLException ex) {
             DBManager.getInstance().rollback(con);
-            ex.printStackTrace();
+            log.error("Can`t add payment", ex);
         } finally {
             DBManager.getInstance().close(con);
         }
@@ -52,7 +54,6 @@ public class MySqlPaymentDao implements PaymentDao {
 
     @Override
     public boolean createPayment(Payment payment, Subscription subscription) {
-        System.out.println("createPaymentMethod");
         boolean result = false;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -90,10 +91,9 @@ public class MySqlPaymentDao implements PaymentDao {
             result = true;
             rs.close();
             pstmt.close();
-            System.out.println("подписка и платеж добавлены");
         } catch (SQLException ex) {
             DBManager.getInstance().rollback(con);
-            ex.printStackTrace();
+            log.error("Can`t create payment", ex);
         } finally {
             DBManager.getInstance().close(con);
         }
@@ -102,7 +102,6 @@ public class MySqlPaymentDao implements PaymentDao {
 
     @Override
     public boolean addPaymentBySubscription(Payment payment, Subscription subscription) {
-        System.out.println("addPaymentBySubscriptionMethod");
         boolean result = false;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -120,18 +119,15 @@ public class MySqlPaymentDao implements PaymentDao {
 
             rs = pstmt.getGeneratedKeys();
             if (rs.next()) {
-                System.out.println("вернувшийся ключ");
                 payment.setId(rs.getLong(1));
             }
 
             result = true;
             rs.close();
             pstmt.close();
-
-            System.out.println("payment added...");
         } catch (SQLException ex) {
             DBManager.getInstance().rollback(con);
-            ex.printStackTrace();
+            log.error("Can`t add payment by subscription", ex);
         } finally {
             DBManager.getInstance().close(con);
         }

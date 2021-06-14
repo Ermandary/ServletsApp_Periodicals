@@ -41,7 +41,7 @@
     </init-param>
     <init-param>
       <param-name>out-of-control</param-name>
-      <param-value>login signup welcomePage mainPage logout</param-value>
+      <param-value>login signup welcomePage mainPage logout noCommand</param-value>
     </init-param>
   </filter>
 

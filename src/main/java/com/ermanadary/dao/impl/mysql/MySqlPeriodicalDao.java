@@ -3,12 +3,16 @@ package com.ermanadary.dao.impl.mysql;
 import com.ermanadary.dao.DBManager;
 import com.ermanadary.dao.PeriodicalDao;
 import com.ermanadary.entity.Periodical;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class MySqlPeriodicalDao implements PeriodicalDao {
+
+    private static final Logger log = LogManager.getLogger(MySqlPeriodicalDao.class);
 
     private static final String INSERT_PERIODICAL = "INSERT INTO periodicals VALUES(DEFAULT, ?, ?, ?, ?, ?, ?)";
     private static final String UPDATE_PERIODICAL = "UPDATE periodicals SET publisher=?, frequency=?, periodical_type=?, periodical_name=?, periodical_price=?, periodical_description=? WHERE periodical_id=?";
@@ -19,7 +23,6 @@ public class MySqlPeriodicalDao implements PeriodicalDao {
 
     @Override
     public List<Periodical> findAllPeriodicals() {
-        System.out.println("findAllPeriodicals...");
         List<Periodical> periodicals = new CopyOnWriteArrayList<>();
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -40,7 +43,7 @@ public class MySqlPeriodicalDao implements PeriodicalDao {
 
         } catch (SQLException ex) {
             DBManager.getInstance().rollback(con);
-            ex.printStackTrace();
+            log.error("Can`t find all periodicals", ex);
         } finally {
             DBManager.getInstance().close(con);
         }
@@ -49,7 +52,6 @@ public class MySqlPeriodicalDao implements PeriodicalDao {
 
     @Override
     public Periodical findPeriodicalById(long id) {
-        System.out.println("PeriodicalDao ищем по ID");
         Periodical periodical = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -69,7 +71,7 @@ public class MySqlPeriodicalDao implements PeriodicalDao {
             pstmt.close();
         } catch (SQLException ex) {
             DBManager.getInstance().rollback(con);
-            ex.printStackTrace();
+            log.error("Can`t find periodical by id", ex);
         } finally {
             DBManager.getInstance().close(con);
         }
@@ -78,7 +80,6 @@ public class MySqlPeriodicalDao implements PeriodicalDao {
 
     @Override
     public List<Periodical> findPeriodicalsByName(String name) {
-        System.out.println("PeriodicalDao ищем по Name");
         List<Periodical> periodicals = new CopyOnWriteArrayList<>();
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -89,7 +90,7 @@ public class MySqlPeriodicalDao implements PeriodicalDao {
             pstmt = con.prepareStatement(FIND_PERIODICALS_BY_NAME);
             pstmt.setString(1, name);
             rs = pstmt.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 periodicals.add(extractPeriodical(rs));
             }
 
@@ -135,7 +136,7 @@ public class MySqlPeriodicalDao implements PeriodicalDao {
             pstmt.close();
         } catch (SQLException ex) {
             DBManager.getInstance().rollback(con);
-            ex.printStackTrace();
+            log.error("Can`t add periodical", ex);
         } finally {
             DBManager.getInstance().close(con);
         }
@@ -159,17 +160,14 @@ public class MySqlPeriodicalDao implements PeriodicalDao {
             pstmt.setString(6, periodical.getDescription());
             pstmt.setLong(7, periodical.getId());
 
-            System.out.println("обновляем издание");
-            System.out.println(periodical);
-            System.out.println(pstmt.executeUpdate());
+            pstmt.executeUpdate();
             con.commit();
-
             result = true;
 
             pstmt.close();
         } catch (SQLException ex) {
             DBManager.getInstance().rollback(con);
-            ex.printStackTrace();
+            log.error("Can`t update periodical", ex);
         } finally {
             DBManager.getInstance().close(con);
         }
@@ -184,7 +182,6 @@ public class MySqlPeriodicalDao implements PeriodicalDao {
         try {
             con = getConnection();
             pstmt = con.prepareStatement(DELETE_PERIODICAL_BY_ID);
-            System.out.println("periodical id = " + periodicalId);
             pstmt.setLong(1, periodicalId);
             pstmt.executeUpdate();
             con.commit();
@@ -193,7 +190,7 @@ public class MySqlPeriodicalDao implements PeriodicalDao {
             pstmt.close();
         } catch (SQLException ex) {
             DBManager.getInstance().rollback(con);
-            ex.printStackTrace();
+            log.error("Can`t delete periodical by id", ex);
         } finally {
             DBManager.getInstance().close(con);
         }

@@ -1,6 +1,9 @@
 package com.ermanadary.tags;
 
+import com.ermanadary.dao.impl.mysql.MySqlUserDao;
 import com.ermanadary.entity.SubscriptionInfo;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
@@ -9,21 +12,17 @@ import java.io.IOException;
 
 public class ShowSubscriptionInfoTag extends TagSupport {
 
-    //    private Periodical periodical;
+    private static final Logger log = LogManager.getLogger(MySqlUserDao.class);
+
     private SubscriptionInfo subscriptionInfo;
-
-//    public void setPeriodical(Periodical periodical) {
-//        this.periodical = periodical;
-//    }
-
 
     public void setSubscriptionInfo(SubscriptionInfo subscriptionInfo) {
         this.subscriptionInfo = subscriptionInfo;
     }
 
     @Override
-    public int doStartTag() throws JspException {
-        System.out.println("MyTag starts");
+    public int doStartTag() {
+        log.debug("ShowSubscriptionInfoTag starts");
 
         JspWriter out = pageContext.getOut();
         try {
@@ -50,29 +49,7 @@ public class ShowSubscriptionInfoTag extends TagSupport {
             e.printStackTrace();
         }
 
-//        System.out.println("periodical ==> " + periodical);
-
+        log.debug("ShowSubscriptionInfoTag finished");
         return TagSupport.SKIP_BODY;
     }
 }
-
-//<c:forEach var="num" items="${subscriptionsInfo}">
-//    <div class="container2 mtb2">
-//        <table class="table2">
-//            <tr>
-//                <th>Name</th>
-//                <th>Type</th>
-//                <th>Frequency</th>
-//                <th>Active from</th>
-//                <th>Active to</th>
-//            </tr>
-//            <tr>
-//                <td>${num.periodicalName}</td>
-//                <td>${num.periodicalType}</td>
-//                <td>${num.frequency}</td>
-//                <td>${num.startDate}</td>
-//                <td>${num.endDate}</td>
-//            </tr>
-//        </table>
-//    </div>
-//</c:forEach>

@@ -5,6 +5,8 @@ import com.ermanadary.dao.DaoFactory;
 import com.ermanadary.entity.Periodical;
 import com.ermanadary.entity.Role;
 import com.ermanadary.web.Path;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,11 +15,15 @@ import java.util.Comparator;
 import java.util.List;
 
 public class MainPageCommand implements Command {
+
+    private static final Logger log = LogManager.getLogger(MainPageCommand.class);
+
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DBException {
-        System.out.println("main page command...");
+        log.debug("MainPageCommand starts");
+
         HttpSession session = req.getSession();
-        String address = Path.PAGE_MAIN;
+        String address = Path.PAGE_ERROR;
         List<Periodical> periodicals;
 
         String isSearch = req.getParameter("isSearch");
@@ -38,14 +44,18 @@ public class MainPageCommand implements Command {
         session.setAttribute("periodicals", periodicals);
 
         Role userRole = (Role) session.getAttribute("userRole");
+        log.trace("userRole ==> " + userRole);
 
         if (userRole == null) {
-            return address;
+            address = Path.PAGE_MAIN;
         } else if (userRole == Role.ADMIN) {
             address = Path.COMMAND_ADMIN_PAGE;
         } else if (userRole == Role.CLIENT) {
             address = Path.COMMAND_CLIENT_PAGE;
         }
+
+        log.trace("address ==> " + address);
+        log.debug("MainPageCommand finished");
         return address;
     }
 

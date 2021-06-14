@@ -2,9 +2,15 @@ package com.ermanadary.web.command.client;
 
 import com.ermanadary.DBException;
 import com.ermanadary.dao.DaoFactory;
-import com.ermanadary.entity.*;
+import com.ermanadary.entity.Payment;
+import com.ermanadary.entity.Periodical;
+import com.ermanadary.entity.Subscription;
+import com.ermanadary.entity.SubscriptionPeriod;
+import com.ermanadary.entity.User;
 import com.ermanadary.web.Path;
 import com.ermanadary.web.command.Command;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,40 +20,33 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 
 public class PaymentFormCommand implements Command {
+
+    private static final Logger log = LogManager.getLogger(PaymentFormCommand.class);
+
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DBException {
-        System.out.println("PaymentFormCommand");
-        String methodthodName = req.getMethod();
-        System.out.println("input method ==> " + methodthodName);
+        log.debug("PaymentFormCommand starts");
 
         HttpSession session = req.getSession();
         Periodical periodical = (Periodical) session.getAttribute("periodical");
         User user = (User) session.getAttribute("user");
         SubscriptionPeriod subscriptionPeriod = (SubscriptionPeriod) session.getAttribute("subscriptionPeriod");
 
-
         Calendar currentDate = Calendar.getInstance();
-
         Subscription subscription = createSubscription(user.getId(), periodical.getId(), subscriptionPeriod, currentDate);
         Payment payment = createPayment(user.getId(), currentDate, periodical.getPrice(), subscriptionPeriod.getNumber());
 
         if (!checkBalance(user.getBalance(), payment.getTotalPrice())) {
-            System.out.println("на балансе мало денег, нужно пополнить");
+            log.debug("not enough money on the balance, forward to top up balance");
             return Path.PAGE_TOP_UP_BALANCE;
         }
 
-        boolean isCreatePayment = DaoFactory.createPaymentDao().createPayment(payment, subscription);
-
-        if (!isCreatePayment) {
-            System.out.println("чтото пошло не так, ошибка");
-            return Path.PAGE_ERROR;
-        }
+        DaoFactory.createPaymentDao().createPayment(payment, subscription);
 
         updateBalance(user, payment.getTotalPrice());
         session.setAttribute("user", user);
 
-        System.out.println("все создалось, возращаем на главную страницу");
-
+        log.debug("PaymentFormCommand finished");
         return Path.PAGE_CLIENT;
     }
 

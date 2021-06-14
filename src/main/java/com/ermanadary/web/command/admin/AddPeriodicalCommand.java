@@ -6,42 +6,45 @@ import com.ermanadary.dao.PeriodicalDao;
 import com.ermanadary.entity.Periodical;
 import com.ermanadary.web.Path;
 import com.ermanadary.web.command.Command;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
 
 public class AddPeriodicalCommand implements Command {
+
+    private static final Logger log = LogManager.getLogger(AddPeriodicalCommand.class);
+
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DBException {
-        System.out.println("AddPeriodicalCommand");
+        log.debug("AddPeriodicalCommand starts");
 
-        String methodthodName = req.getMethod();
-        System.out.println("input method ==> " + methodthodName);
+        String methodName = req.getMethod();
+        log.trace("input method ==> " + methodName);
 
-        if (methodthodName.equals("GET")) {
+        if (methodName.equals("GET")) {
             return Path.PAGE_ADD_PERIODICAL;
         }
 
-        System.out.println("добавляем издание");
-
         String periodicalName = req.getParameter("periodicalName");
-        System.out.println("periodical name ==> " + periodicalName);
+        log.trace("periodical name ==> " + periodicalName);
 
         String periodicalType = req.getParameter("periodicalType");
-        System.out.println("periodical type ==> " + periodicalType);
+        log.trace("periodical type ==> " + periodicalType);
 
         String publisher = req.getParameter("publisher");
-        System.out.println("publisher ==> " + publisher);
+        log.trace("publisher ==> " + publisher);
 
         String frequency = req.getParameter("frequency");
-        System.out.println("frequency ==> " + frequency);
+        log.trace("frequency ==> " + frequency);
 
         BigDecimal price = new BigDecimal(Integer.parseInt(req.getParameter("periodicalPrice")));
-        System.out.println(price);
+        log.trace("price ==> " + price);
 
         String description = req.getParameter("periodicalDescription");
-        System.out.println(description);
+        log.trace("description ==> " + description);
 
         Periodical periodical = new Periodical();
         periodical.setName(periodicalName);
@@ -54,6 +57,7 @@ public class AddPeriodicalCommand implements Command {
         PeriodicalDao periodicalDao = DaoFactory.createPeriodicalDao();
         periodicalDao.addPeriodical(periodical);
 
+        log.debug("AddPeriodicalCommand finished");
         return Path.COMMAND_MAIN_PAGE;
     }
 }

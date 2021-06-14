@@ -4,12 +4,16 @@ import com.ermanadary.dao.DBManager;
 import com.ermanadary.dao.UserDao;
 import com.ermanadary.entity.Gender;
 import com.ermanadary.entity.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class MySqlUserDao implements UserDao {
+
+    private static final Logger log = LogManager.getLogger(MySqlUserDao.class);
 
     private static final String FIND_ALL_USERS = "SELECT * FROM users WHERE role_id=1";
     private static final String FIND_USER_BY_ID = "SELECT * FROM users WHERE user_id=?";
@@ -22,7 +26,6 @@ public class MySqlUserDao implements UserDao {
 
     @Override
     public User findUserByID(long id) {
-        System.out.println("find user by Id");
         User user = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -42,7 +45,7 @@ public class MySqlUserDao implements UserDao {
             pstmt.close();
         } catch (SQLException ex) {
             DBManager.getInstance().rollback(con);
-            ex.printStackTrace();
+            log.error("Can`t find user by id", ex);
         } finally {
             DBManager.getInstance().close(con);
         }
@@ -51,7 +54,6 @@ public class MySqlUserDao implements UserDao {
 
     @Override
     public User findUserByEmail(String email) {
-        System.out.println("UserDao ищем по имейлу");
         User user = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -71,15 +73,15 @@ public class MySqlUserDao implements UserDao {
             pstmt.close();
         } catch (SQLException ex) {
             DBManager.getInstance().rollback(con);
+            log.error("Can`t find user by email", ex);
+        } finally {
             DBManager.getInstance().close(con);
-            ex.printStackTrace();
         }
         return user;
     }
 
     @Override
     public List<User> findAllUsers() {
-        System.out.println("findAllUsers...");
         List<User> users = new CopyOnWriteArrayList<>();
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -89,7 +91,7 @@ public class MySqlUserDao implements UserDao {
             con = getConnection();
             pstmt = con.prepareStatement(FIND_ALL_USERS);
             rs = pstmt.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 users.add(extractUser(rs));
             }
 
@@ -98,7 +100,7 @@ public class MySqlUserDao implements UserDao {
             pstmt.close();
         } catch (SQLException ex) {
             DBManager.getInstance().rollback(con);
-            ex.printStackTrace();
+            log.error("Can`t find all users", ex);
         } finally {
             DBManager.getInstance().close(con);
         }
@@ -134,7 +136,7 @@ public class MySqlUserDao implements UserDao {
             pstmt.close();
         } catch (SQLException ex) {
             DBManager.getInstance().rollback(con);
-            ex.printStackTrace();
+            log.error("Can`t add user", ex);
         } finally {
             DBManager.getInstance().close(con);
         }
@@ -157,10 +159,7 @@ public class MySqlUserDao implements UserDao {
             pstmt.setBigDecimal(5, user.getBalance());
             pstmt.setBoolean(6, user.isStatus());
             pstmt.setString(7, user.getEmail());
-
-            System.out.println("обновляем юзера");
-            System.out.println(user);
-            System.out.println(pstmt.executeUpdate());
+            pstmt.executeUpdate();
             con.commit();
 
             result = true;
@@ -168,7 +167,7 @@ public class MySqlUserDao implements UserDao {
             pstmt.close();
         } catch (SQLException ex) {
             DBManager.getInstance().rollback(con);
-            ex.printStackTrace();
+            log.error("Can`t update user", ex);
         } finally {
             DBManager.getInstance().close(con);
         }
@@ -184,18 +183,12 @@ public class MySqlUserDao implements UserDao {
             con = getConnection();
             pstmt = con.prepareStatement(UPDATE_USER_WITHOUT_BALANCE);
 
-            System.out.println("вставляем юзера...");
-            System.out.println(user);
-
             pstmt.setString(1, user.getPassword());
             pstmt.setString(2, user.getFirstName());
             pstmt.setString(3, user.getLastName());
             pstmt.setString(4, user.getGender());
             pstmt.setLong(5, user.getId());
-
-            System.out.println("обновляем юзера");
-            System.out.println(user);
-            System.out.println(pstmt.executeUpdate());
+            pstmt.executeUpdate();
             con.commit();
 
             result = true;
@@ -203,7 +196,7 @@ public class MySqlUserDao implements UserDao {
             pstmt.close();
         } catch (SQLException ex) {
             DBManager.getInstance().rollback(con);
-            ex.printStackTrace();
+            log.error("Can`t update user without balance", ex);
         } finally {
             DBManager.getInstance().close(con);
         }
@@ -211,7 +204,6 @@ public class MySqlUserDao implements UserDao {
     }
 
     private User extractUser(ResultSet rs) throws SQLException {
-        System.out.println("starting extract user...");
         User user = new User();
         user.setId(rs.getLong("user_id"));
         user.setRoleId(rs.getInt("role_id"));
@@ -222,7 +214,6 @@ public class MySqlUserDao implements UserDao {
         user.setGender(Gender.valueOf(rs.getString("gender")));
         user.setBalance(rs.getBigDecimal("balance"));
         user.setStatus(rs.getBoolean("user_status"));
-        System.out.println("extractions is success");
         return user;
     }
 

@@ -6,38 +6,42 @@ import com.ermanadary.dao.UserDao;
 import com.ermanadary.entity.Gender;
 import com.ermanadary.entity.User;
 import com.ermanadary.web.Path;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class SignupCommand implements Command {
+
+    private static final Logger log = LogManager.getLogger(SignupCommand.class);
+
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DBException {
-        System.out.println("SignUpCommand#execute");
+        log.debug("SignupCommand starts");
         String address = "signup.jsp";
 
         String methodthodName = req.getMethod();
-        System.out.println("input method ==> " + methodthodName);
+        log.trace("input method ==> " + methodthodName);
 
         if (methodthodName.equals("GET")) {
             return Path.PAGE_SIGN_UP;
         }
 
-
         String email = req.getParameter("email");
-        System.out.println("email ==> " + email);
+        log.trace("email ==> " + email);
 
         String firstName = req.getParameter("first_name");
-        System.out.println("firstName ==> " + firstName);
+        log.trace("firstName ==> " + firstName);
 
         String lastName = req.getParameter("last_name");
-        System.out.println("lastName ==> " + lastName);
+        log.trace("lastName ==> " + lastName);
 
         Gender gender = Gender.valueOf(req.getParameter("gender").toUpperCase());
-        System.out.println("gender ==> " + gender);
+        log.trace("gender ==> " + gender);
 
         String password = req.getParameter("password");
-        System.out.println("password ==> " + password);
+        log.trace("password ==> " + password);
 
         User user = new User();
         user.setRoleId(1);
@@ -55,6 +59,7 @@ public class SignupCommand implements Command {
             address = Path.PAGE_LOGIN;
         }
 
+        log.debug("SignupCommand finished");
         return address;
     }
 }

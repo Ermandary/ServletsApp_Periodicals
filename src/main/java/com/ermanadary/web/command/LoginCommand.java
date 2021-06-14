@@ -6,53 +6,56 @@ import com.ermanadary.dao.UserDao;
 import com.ermanadary.entity.Role;
 import com.ermanadary.entity.User;
 import com.ermanadary.web.Path;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class LoginCommand implements Command {
+
+    private static final Logger log = LogManager.getLogger(LoginCommand.class);
+
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DBException {
-        System.out.println("LoginCommand#execute");
+        log.debug("LoginCommand starts");
+
         HttpSession session = req.getSession();
 
         String email = req.getParameter("email");
-        System.out.println("email ==> " + email);
+        log.trace("email ==> " + email);
         String password = req.getParameter("password");
-        System.out.println("password ==> " + password);
+        log.trace("password ==> " + password);
 
         if (email == null || password == null || email.isEmpty() || password.isEmpty()) {
-            String errorMessage = "Login/password cannot be empty";
-            req.setAttribute("errorMessage", errorMessage);
-            System.out.println(errorMessage);
+            log.warn("Login/password cannot be empty");
             return Path.PAGE_LOGIN;
         }
 
         UserDao userDao = DaoFactory.createUserDao();
         User user = userDao.findUserByEmail(email);
-        System.out.println("найденный юзер ==> " + user);
+        log.trace("user ==> " + user);
 
-        // если не null, вызывай init и делай сессию
         if (user == null || !password.equals(user.getPassword())) {
-            System.out.println("user is null или неверный пароль, возвращаем на страницу регистрации");
+            log.warn("user is null или неверный пароль, возвращаем на страницу регистрации");
             return Path.PAGE_LOGIN;
         }
 
         initSession(session, user);
 
+        log.debug("LoginCommand finished");
         return Path.COMMAND_MAIN_PAGE;
     }
 
 
     private void initSession(HttpSession session, User user) {
         Role userRole = Role.getRole(user);
-        System.out.println("userRole ==> " + userRole);
+        log.trace("userRole ==> " + userRole);
 
         session.setAttribute("user", user);
-        System.out.println("в сессию установлени юзер ==> " + user);
+        log.trace("user ==> " + user);
 
         session.setAttribute("userRole", userRole);
-        System.out.println("в сессию установлена роль ==> " + userRole);
     }
 }

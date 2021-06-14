@@ -1,5 +1,8 @@
 package com.ermanadary.dao;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -8,6 +11,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class DBManager {
+
+    private static final Logger log = LogManager.getLogger(DBManager.class);
 
     private DataSource ds;
 
@@ -26,6 +31,7 @@ public class DBManager {
             Context envContext = (Context) initContext.lookup("java:/comp/env");
             ds = (DataSource) envContext.lookup("jdbc/TestDB");
         } catch (NamingException ex) {
+            log.error("Cannot init DBManager");
             throw new IllegalStateException("Cannot init DBManager");
         }
     }

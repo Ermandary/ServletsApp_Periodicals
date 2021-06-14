@@ -6,43 +6,45 @@ import com.ermanadary.dao.UserDao;
 import com.ermanadary.entity.Gender;
 import com.ermanadary.entity.User;
 import com.ermanadary.web.Path;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class UpdateUserCommand implements Command {
+
+    private static final Logger log = LogManager.getLogger(UpdateUserCommand.class);
+
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DBException {
-
-        System.out.println("UpdateUserCommand#execute");
+        log.debug("UpdateUserCommand starts");
         String address = Path.COMMAND_CLIENT_PROFILE;
 
+        String methodName = req.getMethod();
+        log.trace("input method ==> " + methodName);
 
-        String methodthodName = req.getMethod();
-        System.out.println("input method ==> " + methodthodName);
-
-        if (methodthodName.equals("GET")) {
+        if (methodName.equals("GET")) {
             return Path.PAGE_UPDATE_USER;
         }
 
-        System.out.println("опана");
-
         String email = req.getParameter("email");
-        System.out.println("email ==> " + email);
+        log.trace("email ==> " + email);
 
         String firstName = req.getParameter("first_name");
-        System.out.println("firstName ==> " + firstName);
+        log.trace("firstName ==> " + firstName);
 
         String lastName = req.getParameter("last_name");
-        System.out.println("lastName ==> " + lastName);
+        log.trace("lastName ==> " + lastName);
 
         Gender gender = Gender.valueOf(req.getParameter("gender").toUpperCase());
-        System.out.println("gender ==> " + gender);
+        log.trace("gender ==> " + gender);
 
         String password = req.getParameter("password");
-        System.out.println("password ==> " + password);
+        log.trace("password ==> " + password);
 
         User user = (User) req.getSession().getAttribute("user");
+        log.trace("user before update ==> " + user);
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setGender(gender);
@@ -53,8 +55,10 @@ public class UpdateUserCommand implements Command {
         userDao.updateUserWithoutBalance(user);
 
         user = userDao.findUserByID(user.getId());
+        log.trace("user after update ==> " + user);
         req.getSession().setAttribute("user", user);
 
+        log.debug("UpdateUserCommand finished");
         return address;
     }
 }
