@@ -15,37 +15,29 @@ import java.util.StringTokenizer;
 @WebListener
 public class ContextListener implements ServletContextListener {
 
-    private static final Logger log = LogManager.getLogger(ContextListener.class);
-
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        log.debug("ContextListener starts...");
-        DBManager dbManager = DBManager.getInstance();
+        System.out.println("ContextListener starts...");
+        initLogger(sce);
+        DBManager.getInstance();
         initCommandContainer();
 
-//        ServletContext servletContext = sce.getServletContext();
-//        initI18N(servletContext);
-
-
-
-
-//        List<String> locales = Arrays.asList(servletContext.getInitParameter("locales").split(" "));
-//        servletContext.setAttribute("locales", locales);
-//        System.out.println(locales);
-        log.debug("ContextListener finished");
+        System.out.println("ContextListener finished");
     }
 
-//    public void contextInitialized(ServletContextEvent event) {
-//		log("Servlet context initialization starts");
-//
-//		ServletContext servletContext = event.getServletContext();
-//		initLog4J(servletContext);
-//		initCommandContainer();
-//		initI18N(servletContext);
-//
-//		log("Servlet context initialization finished");
-//	}
+    private void initLogger(ServletContextEvent sce){
+        System.out.println("init logger");
+        ServletContext ctx = sce.getServletContext();
+        String path = ctx.getRealPath("WEB-INF/app.log");
+        System.out.println("path ==> " + path);
 
+        System.setProperty("fileName", path);
+
+        Logger log = LogManager.getLogger(ContextListener.class);
+        log.info("info");
+        System.out.println("init logger finished");
+
+    }
 
     private void initI18N(ServletContext servletContext) {
 
@@ -80,16 +72,14 @@ public class ContextListener implements ServletContextListener {
 
 
     private void initCommandContainer() {
-        log.debug("Command container initialization started");
+        System.out.println("Command container initialization started");
 
-        // initialize commands container
-        // just load class to JVM
         try {
             Class.forName("com.ermanadary.web.command.CommandContainer");
         } catch (ClassNotFoundException ex) {
             throw new RuntimeException(ex);
         }
 
-        log.debug("Command container initialization finished");
+        System.out.println("Command container initialization finished");
     }
 }

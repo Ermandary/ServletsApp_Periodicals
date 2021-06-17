@@ -22,5 +22,8 @@ public class Test5 {
             System.out.println(user);
         }
 
+        StringBuilder q = new StringBuilder("a");
+        StringBuilder w = new StringBuilder("a");
+        System.out.println(q.equals(w));
     }
 }

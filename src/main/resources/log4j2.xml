@@ -4,26 +4,19 @@
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
+
+        <File name="File" fileName="${sys:fileName}">
+            <PatternLayout>
+                <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+            </PatternLayout>
+        </File>
     </Appenders>
 
     <Loggers>
         <Root level="trace">
             <AppenderRef ref="Console"/>
+            <AppenderRef ref="File"/>
         </Root>
     </Loggers>
-
-<!--    <RollingFile name="FileLogger" fileName="periodicals-info.log"-->
-<!--                 filePattern="periodicals-info-%d{yyyy-MM-dd}.log">\-->
-<!--        <PatternLayout>-->
-<!--            <pattern>-->
-<!--                [%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS}-->
-<!--            </pattern>-->
-<!--        </PatternLayout>-->
-<!--        <Policies>-->
-<!--            <TimeBasedTriggeringPolicy interval="1" modulate="true"/>-->
-<!--        </Policies>-->
-<!--    </RollingFile>-->
-
 </Configuration>
-
 
