@@ -1,6 +1,7 @@
 package com.ermanadary.web.listener;
 
 import com.ermanadary.dao.DBManager;
+import com.ermanadary.web.command.UpdateUserCommand;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -8,9 +9,11 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.StringTokenizer;
+import java.util.Properties;
 
 @WebListener
 public class ContextListener implements ServletContextListener {
@@ -18,58 +21,62 @@ public class ContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         System.out.println("ContextListener starts...");
-        initLogger(sce);
+
+        ServletContext ctx = sce.getServletContext();
+
+        initLogger(ctx);
         DBManager.getInstance();
         initCommandContainer();
+        initI18N(ctx);
 
         System.out.println("ContextListener finished");
     }
 
-    private void initLogger(ServletContextEvent sce){
+    private void initLogger(ServletContext ctx) {
         System.out.println("init logger");
-        ServletContext ctx = sce.getServletContext();
+
         String path = ctx.getRealPath("WEB-INF/app.log");
         System.out.println("path ==> " + path);
-
         System.setProperty("fileName", path);
 
-        Logger log = LogManager.getLogger(ContextListener.class);
-        log.info("info");
         System.out.println("init logger finished");
-
     }
 
-    private void initI18N(ServletContext servletContext) {
+    private void initI18N(ServletContext context) {
+        // obtain file name with locales descriptions
+        String localesFileName = context.getInitParameter("locales");
 
-        List<String> locales = Arrays.asList(servletContext.getInitParameter("locales").split(" "));
-        servletContext.setAttribute("locales", locales);
+        // obtain reale path on server
+        String localesFileRealPath = context.getRealPath(localesFileName);
 
-        if(locales.isEmpty()) {
-
+        // locad descriptions
+        Properties locales = new Properties();
+        try {
+            locales.load(new FileInputStream(localesFileRealPath));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
+        // save descriptions to servlet context
+        context.setAttribute("locales", locales);
+        locales.list(System.out);
+    }
 
-
-//        log.debug("I18N subsystem initialization started");
+    private void initI18N2(ServletContext servletContext) {
+        System.out.println("initI18N starts");
 
         String localesValue = servletContext.getInitParameter("locales");
-        if (localesValue == null || localesValue.isEmpty()) {
-//            log.warn("'locales' init parameter is empty, the default encoding will be used");
-        } else {
-//            List<String> locales = new ArrayList<>();
-            StringTokenizer st = new StringTokenizer(localesValue);
-            while (st.hasMoreTokens()) {
-                String localeName = st.nextToken();
-                locales.add(localeName);
-            }
+        System.out.println("localesValue ==> " + localesValue);
 
-//            log.debug("Application attribute set: locales --> " + locales);
+        if (localesValue == null || localesValue.isEmpty()) {
+            System.out.println("locales is empty");
+        } else {
+            List<String> locales = Arrays.asList(localesValue.split(" "));
             servletContext.setAttribute("locales", locales);
         }
 
-//        log.debug("I18N subsystem initialization finished");
+        System.out.println("initI18n finished");
     }
-
 
     private void initCommandContainer() {
         System.out.println("Command container initialization started");

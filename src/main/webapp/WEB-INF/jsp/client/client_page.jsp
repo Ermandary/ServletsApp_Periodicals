@@ -9,14 +9,6 @@
 <body>
 
 <header class="signup-header">
-    <%--    <form class="login-catalog" action="controller" method="get">--%>
-    <%--        <input type="hidden" name="command" value="login"/>--%>
-    <%--        <input type="submit" value="Login"/>--%>
-    <%--    </form>--%>
-    <%--    <form class="signup-catalog" action="controller" method="get">--%>
-    <%--        <input type="hidden" name="command" value="signup"/>--%>
-    <%--        <input type="submit" value="Sign Up"/>--%>
-    <%--    </form>--%>
     <form class="clientProfile-header" action="controller">
         <input type="hidden" name="command" value="clientProfile"/>
         <input type="submit" value="View profile">
