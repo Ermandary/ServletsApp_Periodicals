@@ -56,9 +56,6 @@ body {
     transition: all 0.3s ease;
 }
 
-.header-section > ul li {
-    position: relative;
-}
 
 .header-section li .header-button input:hover {
     color: #5FA4FF;
@@ -69,28 +66,6 @@ body {
     color: white;
     transition: all 0.3s ease;
 }
-
-.header-section li ul {
-    position: absolute;
-    min-width: 150px;
-    display: none;
-}
-
-.header-section li > ul li {
-    border: 1px solid black;
-}
-
-.header-section li > ul li .header-item input {
-    font-size: 15px;
-    width: 100%;
-    padding: 10px;
-    text-transform: none;
-}
-
-.header-section li:hover > ul {
-    display: block;
-}
-
 
 .header-item input[type="submit"] {
     background: black;
@@ -146,6 +121,126 @@ body {
     transition: all 0.3s ease;
 }
 
+.header-language {
+    margin: 15px 40px;
+    text-align: center;
+}
+
+.header-language p {
+    color: white;
+    text-align: left;
+}
+
+.header-language input{
+    padding: 10px;
+    width: 100%;
+    color: #fff;
+    font-size: 20px;
+    background: none;
+    outline: none;
+    border: 1px solid #fff;
+    box-sizing: border-box;
+}
+
+.header-language select{
+    padding: 10px;
+    width: 100%;
+    color: #fff;
+    font-size: 20px;
+    background: none;
+    outline: none;
+    border: 1px solid #fff;
+    box-sizing: border-box;
+}
+
+.header-language input[type="email"]:focus, .signup-input input[type="password"]:focus, .signup-input input[type="text"]:focus {
+    border: 1px solid #1D6CBA;
+}
+
+.header-language input[type="submit"] {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    color: black;
+    font-weight: bold;
+    border: none;
+    background: white;
+    transition: .3s;
+}
+
+.header-language input[type="submit"]:hover {
+    background: #5FA4FF;
+}
+
+.header-select select{
+    padding: 10px;
+    width: 80px;
+    height: 45px;
+    color: white;
+    font-size: 15px;
+    background: black;
+    outline: none;
+    border: 1px solid #fff;
+}
+
+.header-select-section{
+    display: inline-block;
+}
+
+.header-select-item{
+    display: inline-block;
+}
+
+.header-search{
+    border: 1px solid #fff;
+}
+
+.inner-menu {
+    margin-right: 40px;
+
+}
+
+.inner-menu h2{
+    height:50px;
+    padding-left: 40px;
+    padding-top:25px;
+    color:white;
+}
+
+.inner-menu h2:hover{
+    color: #5FA4FF;
+    transition: all 0.3s ease;
+}
+
+.inner-menu li ul {
+    position: absolute;
+    min-width: 150px;
+    display: none;
+}
+
+.inner-menu li:hover > ul {
+    display: block;
+}
+
+.inner-menu li > ul li {
+    margin: 0;
+    padding:0;
+    border: 1px solid black;
+}
+
+.inner-menu li > ul li input {
+    color:white;
+    background: black;
+    font-size: 15px;
+    width: 100%;
+    padding: 10px;
+    text-transform: none;
+}
+
+.inner-menu li > ul li input:hover{
+    color: #5FA4FF;
+    transition: all 0.3s ease;
+}
+
 
 /*
     Content
@@ -169,6 +264,79 @@ body {
 
 .content {
     display: block;
+}
+
+
+/*
+    Main page
+*/
+.subscribe-button {
+    margin:0;
+    padding: 0;
+    height: 20px;
+}
+
+.subscribe-button input[type="submit"] {
+    color: black;
+    font-weight: bold;
+    border: none;
+    background: white;
+    transition: .3s;
+}
+
+.subscribe-button input[type="submit"]:hover {
+    color: #5FA4FF;
+}
+
+
+.periodical-form {
+    max-width: 1170px;
+    margin: auto;
+    padding: 0 15px;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+
+.periodical-table {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    border-collapse: collapse;
+    margin: auto;
+}
+
+.periodical-table th, .periodical-table td {
+    text-align: center;
+    padding: 10px;
+}
+
+table.periodical-table tr:nth-child(1) {
+    background-color: black;
+    color: white;
+}
+
+table.periodical-table tr:nth-child(2) {
+    background-color: #5FA4FF;
+}
+
+table.periodical-table tr:nth-child(3) {
+    background-color: #5FA4FF;
+}
+table.periodical-table tr:nth-child(4) {
+    background-color: #5FA4FF;
+}
+table.periodical-table tr:nth-child(5) {
+    background-color: #5FA4FF;
+}
+table.periodical-table tr:nth-child(6) {
+    background-color: grey;
+}
+
+.periodical-table td{
+    width: 600px;
+    background-color: white;
+}
+
+.periodical-price {
+    color: red;
 }
 
 
@@ -366,64 +534,96 @@ body {
 
 
 
-
-
-
-
-
-
-
-
-
-
-.header-language {
-    margin: 15px 40px;
-    text-align: center;
+/*
+    Client profile
+*/
+.client-table {
+    margin: 130px auto;
+    min-width: 700px;
+    background: white;
+    border: 1px solid black;
 }
 
-.header-language p {
+.client-table th {
+    padding-left: 25px;
+    padding-top: 20px;
+}
+
+.client-table tr:nth-child(1) {
+    font-size: 30px;
+    text-align: center;
+    background: black;
     color: white;
+    height: 50px;
+}
+
+.client-table tr:nth-child(2) {
+    font-size: 30px;
     text-align: left;
 }
 
-.header-language input{
-    padding: 10px;
-    width: 100%;
-    color: #fff;
+.client-table tr:nth-child(3) {
+    font-size: 30px;
+    text-align: left;
+}
+.client-table tr:nth-child(4) {
+    font-size: 30px;
+    text-align: left;
+}
+.client-table tr:nth-child(5) {
+    font-size: 30px;
+    text-align: left;
+}
+.client-table tr:nth-child(6) {
     font-size: 20px;
-    background: none;
-    outline: none;
-    border: 1px solid #fff;
-    box-sizing: border-box;
+    text-align: center;
 }
 
-.header-language select{
-    padding: 10px;
-    width: 100%;
-    color: #fff;
+.client-table td{
+    text-align: center;
+    color: blue;
+}
+
+.edit-profile {
+    padding-top: 10px;
+    padding-bottom: 0;
+    margin-bottom: 5px;
+}
+
+.edit-profile input{
     font-size: 20px;
-    background: none;
-    outline: none;
-    border: 1px solid #fff;
-    box-sizing: border-box;
 }
 
-.header-language input[type="email"]:focus, .signup-input input[type="password"]:focus, .signup-input input[type="text"]:focus {
-    border: 1px solid #1D6CBA;
+.profile-name {
+    padding-bottom: 20px;
 }
 
-.header-language input[type="submit"] {
-    margin-top: 30px;
+
+
+
+
+
+.client-table td{
+    padding-top: 20px;
+    padding-left: 180px;
+    text-align: left;
+}
+
+.client-table td input{
+    font-size: 20px;
+    padding-top: 5px;
+}
+
+.client-table td select{
+    font-size: 20px;
+    padding-top: 5px;
+}
+
+.client-table th input {
+    font-size: 20px;
+    text-align: center;
     margin-bottom: 20px;
-    color: black;
-    font-weight: bold;
-    border: none;
-    background: white;
-    transition: .3s;
-}
-
-.header-language input[type="submit"]:hover {
-    background: #5FA4FF;
+    margin-top: 20px;
 }
 
 
@@ -431,115 +631,263 @@ body {
 
 
 
-.header-select select{
-    padding: 10px;
-    width: 80px;
-    height: 45px;
-    color: white;
-    font-size: 15px;
-    background: black;
-    outline: none;
-    border: 1px solid #fff;
-
-}
-
-
-.header-select-section{
-    display: inline-block;
-}
-
-
-.header-select-item{
-    display: inline-block;
-}
-
-.header-search{
-
-    border: 1px solid #fff;
-}
-
-
-.subscribe-button {
-    margin:0;
-    padding: 0;
-    height: 20px;
-}
-
-.subscribe-button input[type="submit"] {
-    color: black;
-    font-weight: bold;
-    border: none;
-    background: white;
-    transition: .3s;
-}
-
-.subscribe-button input[type="submit"]:hover {
-    color: #5FA4FF;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.periodical-form {
-    max-width: 1170px;
-    margin: auto;
-    padding: 0 15px;
-    margin-top: 3rem;
-    margin-bottom: 3rem;
-}
-
-.periodical-table {
+.subscription-table {
+    margin: 100px auto;
+    min-width: 500px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     border-collapse: collapse;
-    margin: auto;
 }
 
-.periodical-table th, .periodical-table td {
+
+.subscription-table th, .subscription-table td {
     text-align: center;
-    padding: 10px;
+    padding: 10px 25px;
+    font-size: 15px;
 }
 
-
-
-table.periodical-table tr:nth-child(1) {
-    background-color: black;
+.subscription-table th{
     color: white;
+    background: black;
 }
 
-table.periodical-table tr:nth-child(2) {
-    background-color: #5FA4FF;
+.subscription-table td{
+    border: 1px solid black;
+    color: black;
+    background: white;
 }
 
-table.periodical-table tr:nth-child(3) {
-    background-color: #5FA4FF;
-}
-table.periodical-table tr:nth-child(4) {
-    background-color: #5FA4FF;
-}
-table.periodical-table tr:nth-child(5) {
-    background-color: #5FA4FF;
-}
-table.periodical-table tr:nth-child(6) {
-    background-color: grey;
+
+
+
+
+
+
+.periodical-info-table {
+    margin: 130px auto;
+    min-width: 700px;
+    background: white;
+    border: 1px solid black;
 }
 
-.periodical-table td{
-    width: 600px;
-    background-color: white;
+.periodical-info-table th {
+    padding-left: 25px;
+    padding-top: 20px;
 }
 
-.periodical-price {
-    color: red;
+.periodical-info-table tr:nth-child(1) {
+    font-size: 30px;
+    text-align: center;
+    background: black;
+    color: white;
+    height: 50px;
 }
 
+.periodical-info-table tr:nth-child(2) {
+    font-size: 30px;
+    text-align: left;
+}
+
+.periodical-info-table tr:nth-child(3) {
+    font-size: 30px;
+    text-align: left;
+}
+.periodical-info-table tr:nth-child(4) {
+    font-size: 30px;
+    text-align: left;
+}
+.periodical-info-table tr:nth-child(5) {
+    font-size: 30px;
+    text-align: left;
+}
+.periodical-info-table tr:nth-child(6) {
+    font-size: 20px;
+    text-align: center;
+}
+
+.periodical-info-table td{
+    text-align: center;
+    color: blue;
+}
+
+.edit-profile {
+    padding-top: 10px;
+    padding-bottom: 0;
+    margin-bottom: 5px;
+}
+
+.edit-profile input{
+    font-size: 20px;
+}
+
+.profile-name {
+    padding-bottom: 20px;
+}
+
+
+
+
+
+
+.periodical-info-table td{
+    padding-top: 20px;
+    padding-left: 180px;
+    text-align: left;
+}
+
+.periodical-info-table td input{
+    font-size: 20px;
+    padding-top: 5px;
+}
+
+.periodical-info-table td select{
+    font-size: 20px;
+    padding-top: 5px;
+}
+
+.periodical-info-table th input {
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+
+
+
+
+
+
+/*gfgg*/
+
+
+
+
+
+
+.periodical-info-table {
+    margin: 50px auto;
+    background: white;
+    border: 1px solid black;
+}
+
+.periodical-info table {
+    max-width: 1000px;
+}
+
+.periodical-info table td{
+    text-align:center;
+}
+
+.periodical-info-table th {
+    padding-left: 25px;
+    padding-top: 30px;
+}
+
+.periodical-info-table tr:nth-child(1) {
+    font-size: 25px;
+    text-align: center;
+    background: black;
+    color: white;
+    height: 50px;
+}
+
+.periodical-info-table tr:nth-child(2) {
+    font-size: 25px;
+    text-align: left;
+}
+
+.periodical-info-table tr:nth-child(3) {
+    font-size: 25px;
+    text-align: left;
+}
+.periodical-info-table tr:nth-child(4) {
+    font-size: 25px;
+    text-align: left;
+}
+.periodical-info-table tr:nth-child(5) {
+    font-size: 25px;
+    text-align: left;
+}
+.periodical-info-table tr:nth-child(6) {
+    font-size: 25px;
+    text-align: left;
+}
+.periodical-info-table tr:nth-child(7) {
+    font-size: 25px;
+    text-align: left;
+}
+
+.subscription-type {
+    font-size: 25px;
+    text-align: left;
+}
+
+.subscription-type select{
+    margin-top: 15px;
+}
+
+
+.periodical-info-table td{
+    color: blue;
+}
+
+.edit-profile {
+    padding-top: 10px;
+    padding-bottom: 0;
+    margin-bottom: 5px;
+}
+
+.edit-profile input{
+    font-size: 20px;
+}
+
+.profile-name {
+    padding-bottom: 20px;
+}
+
+.periodical-info-table td{
+    padding-top: 20px;
+    padding-left: 180px;
+    text-align: left;
+}
+
+.periodical-info-table td input{
+    font-size: 20px;
+    padding-top: 5px;
+}
+
+.periodical-info-table td select{
+    font-size: 20px;
+    padding-top: 5px;
+}
+
+.periodical-info-table th input {
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+
+.periodical-description {
+    background:  #9CA7F3;
+}
+
+.ds {
+    text-align: center;
+    margin: 0 auto;
+    padding: 0;
+    font-size: 28px;
+}
+
+.ds-info {
+    margin: 0 20px;
+    padding: 0 0 20px;
+    text-align: left;
+    font-size: 25px;
+}
+
+.subscribe-continue {
+    margin-top: 100px;
+}
 

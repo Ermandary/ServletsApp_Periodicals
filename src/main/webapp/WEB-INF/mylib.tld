@@ -20,11 +20,4 @@
             <type>com.ermanadary.entity.SubscriptionInfo</type>
         </attribute>
     </tag>
-
-<!--    <tag>-->
-<!--        <name>test</name>-->
-<!--        <tag-class>com.my.tag.TestTag</tag-class>-->
-<!--        <body-content>empty</body-content>-->
-<!--    </tag>-->
-
 </taglib>

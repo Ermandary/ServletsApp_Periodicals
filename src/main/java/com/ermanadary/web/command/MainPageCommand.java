@@ -35,10 +35,13 @@ public class MainPageCommand implements Command {
 
             if (sortName == null || sortName.isEmpty() || sortName.equals("type")) {
                 sortByType(periodicals);
+                session.setAttribute("sortName", "type");
             } else if (sortName.equals("name")) {
                 sortByName(periodicals);
+                session.setAttribute("sortName", "name");
             } else if (sortName.equals("price")) {
                 sortByPrice(periodicals);
+                session.setAttribute("sortName", "price");
             }
         }
         session.setAttribute("periodicals", periodicals);

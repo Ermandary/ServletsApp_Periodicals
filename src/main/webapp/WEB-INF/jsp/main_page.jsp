@@ -46,9 +46,15 @@
                         <form class="header-item header-button header-select" action="controller" method="get">
                             <div class="header-select-item">
                                 <select name="sortBy">
-                                    <option selected value="type"><fmt:message key='type'/></option>
-                                    <option value="name"><fmt:message key='name'/></option>
-                                    <option value="price"><fmt:message key='price'/></option>
+                                    <c:set var="selectedType" value="${sortName == 'type' ? 'selected' : '' }"/>
+                                    <c:set var="selectedName" value="${sortName == 'name' ? 'selected' : '' }"/>
+                                    <c:set var="selectedPrice" value="${sortName == 'price' ? 'selected' : '' }"/>
+                                    <option ${selectedType} value="type">
+                                        <fmt:message key='type'/></option>
+                                    <option ${selectedName} value="name">
+                                        <fmt:message key='name'/></option>
+                                    <option ${selectedPrice} value="price">
+                                        <fmt:message key='price'/></option>
                                 </select>
                             </div>
                             <div class="header-select-item">

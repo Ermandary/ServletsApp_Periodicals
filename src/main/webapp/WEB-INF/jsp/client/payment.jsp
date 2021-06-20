@@ -18,7 +18,6 @@
 <h1>Frequency: ${periodical.frequency}</h1></br>
 <h1>Subscription period: ${subscriptionPeriod}</h1></br>
 <h1>Month price: ${periodical.price}</h1></br>
-<%--<h1>и дескрипшион намбер: ${subscriptionPeriod.number}</h1></br>--%>
 <h1>Total price: ${periodical.price * subscriptionPeriod.number}</h1></br>
 <h1>Your balance: ${user.balance}</h1></br>
 
