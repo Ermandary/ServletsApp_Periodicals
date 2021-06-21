@@ -71,6 +71,10 @@
                     <td>${user.lastName}</td>
                 </tr>
                 <tr>
+                    <th><fmt:message key='login_page_gender'/></th>
+                    <td>${user.gender}</td>
+                </tr>
+                <tr class="client-profile-balance">
                     <th><fmt:message key='balance'/></th>
                     <td>${user.balance}</td>
                 </tr>

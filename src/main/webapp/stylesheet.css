@@ -201,7 +201,7 @@ body {
 
 .inner-menu h2{
     height:50px;
-    padding-left: 40px;
+    padding-left: 0px;
     padding-top:25px;
     color:white;
 }
@@ -891,3 +891,44 @@ table.periodical-table tr:nth-child(6) {
     margin-top: 100px;
 }
 
+
+
+.yb{
+    font-size: 25px;
+    text-align: left;
+}
+
+.yb td{
+    color: red;
+}
+
+.payment-container{
+    height: 50px;
+    margin: 0 auto 10px;
+}
+
+
+.client-profile-balance th, .client-profile-balance td{
+    text-align:left;
+    font-size:30px;
+}
+
+.admin-page-delete th{
+    background: grey;
+}
+
+.admin-profile-gender th, .admin-profile-gender td{
+    padding-bottom: 20px;
+}
+
+
+
+
+.periodical-input1 th, .periodical-input1 td{
+    font-size: 30px;
+    text-align: left;
+}
+
+.periodical-input1 td textarea{
+    width:250px;
+}

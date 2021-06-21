@@ -7,6 +7,7 @@
     <title>Periodicals</title>
     <link href="stylesheet.css" rel="stylesheet" type="text/css">
 </head>
+
 <body>
 
 <div class="wrapper">
@@ -74,7 +75,6 @@
                             <div class="header-select-item">
                                 <input type="submit" value="<fmt:message key='main_page.search'/>"/>
                             </div>
-
                         </form>
                     </div>
                 </li>
