@@ -1,19 +1,20 @@
 package com.ermanadary.dao;
 
+import com.ermanadary.DBException;
 import com.ermanadary.entity.Periodical;
 
 import java.util.List;
 
 public interface PeriodicalDao {
-    List<Periodical> findAllPeriodicals();
+    List<Periodical> findAllPeriodicals() throws DBException;
 
-    List<Periodical> findPeriodicalsByName(String name);
+    List<Periodical> findPeriodicalsByName(String name) throws DBException;
 
-    Periodical findPeriodicalById(long id);
+    Periodical findPeriodicalById(long id) throws DBException;
 
-    boolean addPeriodical(Periodical periodical);
+    boolean addPeriodical(Periodical periodical) throws DBException;
 
-    boolean updatePeriodical(Periodical periodical);
+    boolean updatePeriodical(Periodical periodical) throws DBException;
 
-    boolean deletePeriodicalById(long periodicalId);
+    boolean deletePeriodicalById(long periodicalId) throws DBException;
 }

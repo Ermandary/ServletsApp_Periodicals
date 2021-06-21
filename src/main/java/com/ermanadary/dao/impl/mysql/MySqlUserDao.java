@@ -1,5 +1,6 @@
 package com.ermanadary.dao.impl.mysql;
 
+import com.ermanadary.DBException;
 import com.ermanadary.dao.DBManager;
 import com.ermanadary.dao.UserDao;
 import com.ermanadary.entity.Gender;
@@ -25,7 +26,7 @@ public class MySqlUserDao implements UserDao {
     private static final String UPDATE_USER_WITHOUT_BALANCE = "UPDATE users SET password=?, first_name=?, last_name=?, gender=? WHERE user_id=?";
 
     @Override
-    public User findUserByID(long id) {
+    public User findUserByID(long id) throws DBException {
         User user = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -45,7 +46,9 @@ public class MySqlUserDao implements UserDao {
             pstmt.close();
         } catch (SQLException ex) {
             DBManager.getInstance().rollback(con);
-            log.error("Can`t find user by id", ex);
+            String message = "Can`t find user by id";
+            log.error(message, ex);
+            throw new DBException(message, ex);
         } finally {
             DBManager.getInstance().close(con);
         }
@@ -53,7 +56,7 @@ public class MySqlUserDao implements UserDao {
     }
 
     @Override
-    public User findUserByEmail(String email) {
+    public User findUserByEmail(String email) throws DBException {
         User user = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -73,7 +76,9 @@ public class MySqlUserDao implements UserDao {
             pstmt.close();
         } catch (SQLException ex) {
             DBManager.getInstance().rollback(con);
-            log.error("Can`t find user by email", ex);
+            String message = "Can`t find user by email";
+            log.error(message, ex);
+            throw new DBException(message, ex);
         } finally {
             DBManager.getInstance().close(con);
         }
@@ -81,7 +86,7 @@ public class MySqlUserDao implements UserDao {
     }
 
     @Override
-    public List<User> findAllUsers() {
+    public List<User> findAllUsers() throws DBException {
         List<User> users = new CopyOnWriteArrayList<>();
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -100,7 +105,9 @@ public class MySqlUserDao implements UserDao {
             pstmt.close();
         } catch (SQLException ex) {
             DBManager.getInstance().rollback(con);
-            log.error("Can`t find all users", ex);
+            String message = "Can`t find all users";
+            log.error(message, ex);
+            throw new DBException(message, ex);
         } finally {
             DBManager.getInstance().close(con);
         }
@@ -108,7 +115,7 @@ public class MySqlUserDao implements UserDao {
     }
 
     @Override
-    public boolean addUser(User user) {
+    public boolean addUser(User user) throws DBException {
         boolean result = false;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -136,7 +143,9 @@ public class MySqlUserDao implements UserDao {
             pstmt.close();
         } catch (SQLException ex) {
             DBManager.getInstance().rollback(con);
-            log.error("Can`t add user", ex);
+            String message = "Can`t add user";
+            log.error(message, ex);
+            throw new DBException(message, ex);
         } finally {
             DBManager.getInstance().close(con);
         }
@@ -144,7 +153,7 @@ public class MySqlUserDao implements UserDao {
     }
 
     @Override
-    public boolean updateUser(User user) {
+    public boolean updateUser(User user) throws DBException {
         boolean result = false;
         PreparedStatement pstmt = null;
         Connection con = null;
@@ -167,7 +176,9 @@ public class MySqlUserDao implements UserDao {
             pstmt.close();
         } catch (SQLException ex) {
             DBManager.getInstance().rollback(con);
-            log.error("Can`t update user", ex);
+            String message = "Can`t update user";
+            log.error(message, ex);
+            throw new DBException(message, ex);
         } finally {
             DBManager.getInstance().close(con);
         }
@@ -175,7 +186,7 @@ public class MySqlUserDao implements UserDao {
     }
 
     @Override
-    public boolean updateUserWithoutBalance(User user) {
+    public boolean updateUserWithoutBalance(User user) throws DBException {
         boolean result = false;
         PreparedStatement pstmt = null;
         Connection con = null;
@@ -196,7 +207,9 @@ public class MySqlUserDao implements UserDao {
             pstmt.close();
         } catch (SQLException ex) {
             DBManager.getInstance().rollback(con);
-            log.error("Can`t update user without balance", ex);
+            String message = "Can`t update user without balance";
+            log.error(message, ex);
+            throw new DBException(message, ex);
         } finally {
             DBManager.getInstance().close(con);
         }

@@ -43,14 +43,10 @@
     <div class="content">
         <div class="system-info">
             <h1>Periodicals</h1>
-            <h2>The system contains a list of periodicals that are grouped by type. User can subscribe to one or more
-                periodicals.</h2>
-            <h2>The user sign up at the system and has personal profile, where he can see his subscriptions.
-                Unregistered user cannot subscribe.</h2>
-            <h2>The user has a personal account that he can replenish. Money from the credit balance is deducted during
-                the subscription.</h2>
-            <h2>The Administrator has the right to block/unblock users, as well as add/remove/edit
-                subscriptions.</h2>
+            <h2><fmt:message key='welcome_message1'/></h2>
+            <h2><fmt:message key='welcome_message2'/></h2>
+            <h2><fmt:message key='welcome_message3'/></h2>
+            <h2><fmt:message key='welcome_message4'/></h2>
         </div>
     </div>
 

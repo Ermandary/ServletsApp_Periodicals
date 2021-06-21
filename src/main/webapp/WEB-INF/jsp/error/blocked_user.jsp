@@ -1,11 +1,7 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Neftyanik
-  Date: 04.06.2021
-  Time: 13:20
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <html>
 <head>
     <title>You are blocked</title>
@@ -13,12 +9,48 @@
 </head>
 <body>
 
-<h2>Your account is blocked. Contact the administrator</h2>
+<div class="wrapper">
 
-<form action="controller" method="get">
-    <input type="hidden" name="command" value="login"/>
-    <input type="submit" value="login"/>
-</form>
+    <div class="header">
+        <div class="header-section">
+            <ul>
+                <li>
+                    <form class="header-item header-logo" action="controller" method="get">
+                        <input type="hidden" name="command" value="mainPage"/>
+                        <input type="submit" value="Periodicals"/>
+                    </form>
+                </li>
+            </ul>
+        </div>
+        <div class="header-section">
+            <ul>
+                <li>
+                    <form class="header-item header-button" action="controller" method="get">
+                        <input type="hidden" name="command" value="login"/>
+                        <input type="submit" value="<fmt:message key='login'/>"/>
+                    </form>
+                </li>
+                <li>
+                    <form class="header-item header-button" action="controller" method="get">
+                        <input type="hidden" name="command" value="signup"/>
+                        <input type="submit" value="<fmt:message key='signup'/>"/>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
 
+    <div class="content">
+        <div class="error-info">
+            <h2><fmt:message key='error-blocked_user'/></h2>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="footer-info">
+            <h4>2021 Alexander Ipatov</h4>
+        </div>
+    </div>
+</div>
 </body>
 </html>

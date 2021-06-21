@@ -2,7 +2,6 @@ package com.ermanadary.web.command;
 
 import com.ermanadary.DBException;
 import com.ermanadary.web.Path;
-import com.ermanadary.web.command.client.PaymentCommand;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

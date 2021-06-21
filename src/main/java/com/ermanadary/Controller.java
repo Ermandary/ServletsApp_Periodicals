@@ -1,5 +1,6 @@
 package com.ermanadary;
 
+import com.ermanadary.web.Path;
 import com.ermanadary.web.command.Command;
 import com.ermanadary.web.command.CommandContainer;
 import com.ermanadary.web.listener.ContextListener;
@@ -22,7 +23,7 @@ public class Controller extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.debug("Controller#doGet starts");
 
-        String address = "error.jsp";
+        String address = Path.PAGE_ERROR;
         String commandName = req.getParameter("command");
         log.trace("command ==> " + commandName);
 
@@ -56,7 +57,7 @@ public class Controller extends HttpServlet {
             req.setAttribute("error", ex);
         }
 
-        StringBuilder q = new StringBuilder("/periodicals");
+        StringBuilder q = new StringBuilder(req.getContextPath());
         q.append(address);
 
         log.debug("Controller#doGPost finished");

@@ -80,7 +80,7 @@ public class PaymentFormCommand implements Command {
         return payment;
     }
 
-    private void updateBalance(User user, BigDecimal totalPrice) {
+    private void updateBalance(User user, BigDecimal totalPrice) throws DBException {
         BigDecimal resultBalance = user.getBalance().subtract(totalPrice);
         user.setBalance(resultBalance);
         DaoFactory.createUserDao().updateUser(user);

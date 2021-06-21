@@ -1,5 +1,6 @@
 package com.ermanadary.dao.impl.mysql;
 
+import com.ermanadary.DBException;
 import com.ermanadary.dao.DBManager;
 import com.ermanadary.dao.PeriodicalDao;
 import com.ermanadary.entity.Periodical;
@@ -22,7 +23,7 @@ public class MySqlPeriodicalDao implements PeriodicalDao {
     private static final String FIND_PERIODICALS_BY_NAME = "SELECT * FROM periodicals WHERE periodical_name=?";
 
     @Override
-    public List<Periodical> findAllPeriodicals() {
+    public List<Periodical> findAllPeriodicals() throws DBException {
         List<Periodical> periodicals = new CopyOnWriteArrayList<>();
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -40,10 +41,11 @@ public class MySqlPeriodicalDao implements PeriodicalDao {
             con.commit();
             rs.close();
             pstmt.close();
-
         } catch (SQLException ex) {
             DBManager.getInstance().rollback(con);
-            log.error("Can`t find all periodicals", ex);
+            String message = "Can`t find all periodicals";
+            log.error(message, ex);
+            throw new DBException(message, ex);
         } finally {
             DBManager.getInstance().close(con);
         }
@@ -51,7 +53,7 @@ public class MySqlPeriodicalDao implements PeriodicalDao {
     }
 
     @Override
-    public Periodical findPeriodicalById(long id) {
+    public Periodical findPeriodicalById(long id) throws DBException {
         Periodical periodical = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -71,7 +73,9 @@ public class MySqlPeriodicalDao implements PeriodicalDao {
             pstmt.close();
         } catch (SQLException ex) {
             DBManager.getInstance().rollback(con);
-            log.error("Can`t find periodical by id", ex);
+            String message = "Can`t find periodical by id";
+            log.error(message, ex);
+            throw new DBException(message, ex);
         } finally {
             DBManager.getInstance().close(con);
         }
@@ -79,7 +83,7 @@ public class MySqlPeriodicalDao implements PeriodicalDao {
     }
 
     @Override
-    public List<Periodical> findPeriodicalsByName(String name) {
+    public List<Periodical> findPeriodicalsByName(String name) throws DBException {
         List<Periodical> periodicals = new CopyOnWriteArrayList<>();
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -99,7 +103,9 @@ public class MySqlPeriodicalDao implements PeriodicalDao {
             pstmt.close();
         } catch (SQLException ex) {
             DBManager.getInstance().rollback(con);
-            ex.printStackTrace();
+            String message = "Can`t find periodical by name";
+            log.error(message, ex);
+            throw new DBException(message, ex);
         } finally {
             DBManager.getInstance().close(con);
         }
@@ -107,7 +113,7 @@ public class MySqlPeriodicalDao implements PeriodicalDao {
     }
 
     @Override
-    public boolean addPeriodical(Periodical periodical) {
+    public boolean addPeriodical(Periodical periodical) throws DBException {
         boolean result = false;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -136,7 +142,9 @@ public class MySqlPeriodicalDao implements PeriodicalDao {
             pstmt.close();
         } catch (SQLException ex) {
             DBManager.getInstance().rollback(con);
-            log.error("Can`t add periodical", ex);
+            String message = "Can`t add periodical";
+            log.error(message, ex);
+            throw new DBException(message, ex);
         } finally {
             DBManager.getInstance().close(con);
         }
@@ -144,7 +152,7 @@ public class MySqlPeriodicalDao implements PeriodicalDao {
     }
 
     @Override
-    public boolean updatePeriodical(Periodical periodical) {
+    public boolean updatePeriodical(Periodical periodical) throws DBException {
         boolean result = false;
         PreparedStatement pstmt = null;
         Connection con = null;
@@ -167,7 +175,9 @@ public class MySqlPeriodicalDao implements PeriodicalDao {
             pstmt.close();
         } catch (SQLException ex) {
             DBManager.getInstance().rollback(con);
-            log.error("Can`t update periodical", ex);
+            String message = "Can`t update periodical";
+            log.error(message, ex);
+            throw new DBException(message, ex);
         } finally {
             DBManager.getInstance().close(con);
         }
@@ -175,7 +185,7 @@ public class MySqlPeriodicalDao implements PeriodicalDao {
     }
 
     @Override
-    public boolean deletePeriodicalById(long periodicalId) {
+    public boolean deletePeriodicalById(long periodicalId) throws DBException {
         boolean result = false;
         PreparedStatement pstmt = null;
         Connection con = null;
@@ -190,7 +200,9 @@ public class MySqlPeriodicalDao implements PeriodicalDao {
             pstmt.close();
         } catch (SQLException ex) {
             DBManager.getInstance().rollback(con);
-            log.error("Can`t delete periodical by id", ex);
+            String message = "Can`t delete periodical by id";
+            log.error(message, ex);
+            throw new DBException(message, ex);
         } finally {
             DBManager.getInstance().close(con);
         }

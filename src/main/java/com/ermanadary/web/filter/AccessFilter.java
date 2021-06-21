@@ -1,5 +1,6 @@
 package com.ermanadary.web.filter;
 
+import com.ermanadary.DBException;
 import com.ermanadary.dao.DaoFactory;
 import com.ermanadary.entity.Role;
 import com.ermanadary.entity.User;
@@ -92,7 +93,13 @@ public class AccessFilter implements Filter {
         }
 
         //Update user info
-        user = DaoFactory.createUserDao().findUserByID(user.getId());
+        try {
+            user = DaoFactory.createUserDao().findUserByID(user.getId());
+        } catch (DBException e) {
+            request.setAttribute("error", e);
+            request.getRequestDispatcher(Path.PAGE_ERROR)
+                    .forward(request, response);
+        }
         log.trace("user ==>" + user);
 
         Role userRole = Role.getRole(user);

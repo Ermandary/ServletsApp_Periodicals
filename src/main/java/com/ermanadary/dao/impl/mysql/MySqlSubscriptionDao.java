@@ -1,5 +1,6 @@
 package com.ermanadary.dao.impl.mysql;
 
+import com.ermanadary.DBException;
 import com.ermanadary.dao.DBManager;
 import com.ermanadary.dao.SubscriptionDao;
 import com.ermanadary.entity.Subscription;
@@ -26,7 +27,7 @@ public class MySqlSubscriptionDao implements SubscriptionDao {
                     "WHERE subscriptions.user_id = ?";
 
     @Override
-    public boolean addSubscription(Subscription subscription) {
+    public boolean addSubscription(Subscription subscription) throws DBException {
         boolean result = false;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -55,7 +56,9 @@ public class MySqlSubscriptionDao implements SubscriptionDao {
             pstmt.close();
         } catch (SQLException ex) {
             DBManager.getInstance().rollback(con);
-            log.error("Can`t add subscription", ex);
+            String message = "Can`t add subscription";
+            log.error(message, ex);
+            throw new DBException(message, ex);
         } finally {
             DBManager.getInstance().close(con);
         }
@@ -63,7 +66,7 @@ public class MySqlSubscriptionDao implements SubscriptionDao {
     }
 
     @Override
-    public List<Subscription> findSubscriptionsByUserId(long userId) {
+    public List<Subscription> findSubscriptionsByUserId(long userId) throws DBException {
         List<Subscription> subscriptions = new CopyOnWriteArrayList<>();
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -82,10 +85,11 @@ public class MySqlSubscriptionDao implements SubscriptionDao {
             con.commit();
             rs.close();
             pstmt.close();
-
         } catch (SQLException ex) {
             DBManager.getInstance().rollback(con);
-            log.error("Can`t find subscription bu user id", ex);
+            String message = "Can`t find subscription bu user id";
+            log.error(message, ex);
+            throw new DBException(message, ex);
         } finally {
             DBManager.getInstance().close(con);
         }
@@ -93,7 +97,7 @@ public class MySqlSubscriptionDao implements SubscriptionDao {
     }
 
     @Override
-    public boolean isSubscribed(long userId, long periodicalId) {
+    public boolean isSubscribed(long userId, long periodicalId) throws DBException {
         boolean result = false;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -113,17 +117,18 @@ public class MySqlSubscriptionDao implements SubscriptionDao {
             con.commit();
             rs.close();
             pstmt.close();
-
         } catch (SQLException ex) {
             DBManager.getInstance().rollback(con);
-            log.error("Can`t find subscribed...", ex);
+            String message = "Can`t find subscribed...";
+            log.error(message, ex);
+            throw new DBException(message, ex);
         } finally {
             DBManager.getInstance().close(con);
         }
         return result;
     }
 
-    public List<SubscriptionInfo> getSubscriptionsInfo(long userId) {
+    public List<SubscriptionInfo> getSubscriptionsInfo(long userId) throws DBException {
         List<SubscriptionInfo> subscriptionsInfo = new CopyOnWriteArrayList<>();
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -144,7 +149,9 @@ public class MySqlSubscriptionDao implements SubscriptionDao {
             pstmt.close();
         } catch (SQLException ex) {
             DBManager.getInstance().rollback(con);
-            log.error("Can`t get subscriptions info", ex);
+            String message = "Can`t get subscriptions info";
+            log.error(message, ex);
+            throw new DBException(message, ex);
         } finally {
             DBManager.getInstance().close(con);
         }
