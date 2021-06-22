@@ -1,6 +1,6 @@
 package com.ermanadary.web.command.client;
 
-import com.ermanadary.DBException;
+import com.ermanadary.exceptions.DBException;
 import com.ermanadary.dao.DaoFactory;
 import com.ermanadary.entity.Payment;
 import com.ermanadary.entity.Periodical;

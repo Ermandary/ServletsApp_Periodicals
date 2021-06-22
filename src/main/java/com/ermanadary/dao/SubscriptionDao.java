@@ -1,6 +1,6 @@
 package com.ermanadary.dao;
 
-import com.ermanadary.DBException;
+import com.ermanadary.exceptions.DBException;
 import com.ermanadary.entity.Subscription;
 import com.ermanadary.entity.SubscriptionInfo;
 

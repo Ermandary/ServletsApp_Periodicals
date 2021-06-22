@@ -1,4 +1,4 @@
-package com.ermanadary;
+package com.ermanadary.exceptions;
 
 public class DBException extends Exception {
     public DBException(String message, Throwable cause) {

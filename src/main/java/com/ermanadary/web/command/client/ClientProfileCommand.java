@@ -1,6 +1,6 @@
 package com.ermanadary.web.command.client;
 
-import com.ermanadary.DBException;
+import com.ermanadary.exceptions.DBException;
 import com.ermanadary.entity.User;
 import com.ermanadary.web.Path;
 import com.ermanadary.web.command.Command;

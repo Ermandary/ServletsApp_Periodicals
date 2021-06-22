@@ -1,6 +1,6 @@
 package com.ermanadary.web.command.admin;
 
-import com.ermanadary.DBException;
+import com.ermanadary.exceptions.DBException;
 import com.ermanadary.dao.DaoFactory;
 import com.ermanadary.dao.PeriodicalDao;
 import com.ermanadary.entity.Periodical;
@@ -47,14 +47,20 @@ public class EditPeriodical implements Command {
         String frequency = req.getParameter("frequency");
         log.trace("frequency ==> " + frequency);
 
+        String description = req.getParameter("periodicalDescription");
+        log.trace("description ==> " + description);
+
         String priceStr = req.getParameter("periodicalPrice");
         log.trace("priceStr==> " + priceStr);
 
-        BigDecimal price = new BigDecimal(req.getParameter("periodicalPrice"));
-        log.trace("price ==> " + price);
+        if (periodicalName == null || periodicalName.isEmpty() || periodicalType == null || periodicalType.isEmpty()
+                || publisher == null || publisher.isEmpty() || frequency == null || frequency.isEmpty()
+                || priceStr == null || priceStr.isEmpty() || description == null || description.isEmpty()) {
+            return Path.COMMAND_ADD_PERIODICAL;
+        }
 
-        String description = req.getParameter("periodicalDescription");
-        log.trace("description ==> " + description);
+        BigDecimal price = new BigDecimal(priceStr);
+        log.trace("price ==> " + price);
 
         periodical = new Periodical();
         periodical.setId((Long) session.getAttribute("periodicalId"));

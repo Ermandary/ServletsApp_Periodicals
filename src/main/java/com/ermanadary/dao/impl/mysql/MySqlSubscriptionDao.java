@@ -1,6 +1,6 @@
 package com.ermanadary.dao.impl.mysql;
 
-import com.ermanadary.DBException;
+import com.ermanadary.exceptions.DBException;
 import com.ermanadary.dao.DBManager;
 import com.ermanadary.dao.SubscriptionDao;
 import com.ermanadary.entity.Subscription;

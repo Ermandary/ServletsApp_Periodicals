@@ -1,6 +1,6 @@
 package com.ermanadary.web.filter;
 
-import com.ermanadary.DBException;
+import com.ermanadary.exceptions.DBException;
 import com.ermanadary.dao.DaoFactory;
 import com.ermanadary.entity.Role;
 import com.ermanadary.entity.User;

@@ -1,6 +1,6 @@
 package com.ermanadary.web.command;
 
-import com.ermanadary.DBException;
+import com.ermanadary.exceptions.DBException;
 import com.ermanadary.dao.DaoFactory;
 import com.ermanadary.dao.UserDao;
 import com.ermanadary.entity.Gender;
@@ -37,11 +37,20 @@ public class UpdateUserCommand implements Command {
         String lastName = req.getParameter("last_name");
         log.trace("lastName ==> " + lastName);
 
-        Gender gender = Gender.valueOf(req.getParameter("gender").toUpperCase());
-        log.trace("gender ==> " + gender);
-
         String password = req.getParameter("password");
         log.trace("password ==> " + password);
+
+        String genderStr = req.getParameter("gender");
+
+        if(email == null || email.isEmpty() || firstName ==null || firstName.isEmpty()
+                || lastName==null || lastName.isEmpty() || password==null || password.isEmpty()
+                || genderStr == null || genderStr.isEmpty()) {
+            return Path.COMMAND_CLIENT_PROFILE;
+        }
+
+        Gender gender = Gender.valueOf(genderStr.toUpperCase());
+        log.trace("gender ==> " + gender);
+
 
         User user = (User) req.getSession().getAttribute("user");
         log.trace("user before update ==> " + user);

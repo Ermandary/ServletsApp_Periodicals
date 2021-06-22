@@ -1,5 +1,6 @@
 package com.ermanadary;
 
+import com.ermanadary.exceptions.DBException;
 import com.ermanadary.web.Path;
 import com.ermanadary.web.command.Command;
 import com.ermanadary.web.command.CommandContainer;

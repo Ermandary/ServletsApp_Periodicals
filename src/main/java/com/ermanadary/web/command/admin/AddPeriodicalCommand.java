@@ -1,6 +1,6 @@
 package com.ermanadary.web.command.admin;
 
-import com.ermanadary.DBException;
+import com.ermanadary.exceptions.DBException;
 import com.ermanadary.dao.DaoFactory;
 import com.ermanadary.dao.PeriodicalDao;
 import com.ermanadary.entity.Periodical;

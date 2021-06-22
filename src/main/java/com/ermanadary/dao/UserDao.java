@@ -1,6 +1,6 @@
 package com.ermanadary.dao;
 
-import com.ermanadary.DBException;
+import com.ermanadary.exceptions.DBException;
 import com.ermanadary.entity.User;
 
 import java.util.List;

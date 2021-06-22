@@ -1,6 +1,6 @@
 package com.ermanadary.web.command;
 
-import com.ermanadary.DBException;
+import com.ermanadary.exceptions.DBException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

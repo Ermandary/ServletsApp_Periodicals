@@ -1,6 +1,6 @@
 package com.ermanadary.web.command.admin;
 
-import com.ermanadary.DBException;
+import com.ermanadary.exceptions.DBException;
 import com.ermanadary.web.Path;
 import com.ermanadary.web.command.Command;
 import org.apache.logging.log4j.LogManager;
