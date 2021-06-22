@@ -55,7 +55,7 @@ public class CommandContainer {
     }
 
     public static Command getCommand(String commandName) {
-        if(commandName == null || !commands.containsKey(commandName)) {
+        if (commandName == null || !commands.containsKey(commandName)) {
             log.warn("Command not found, commandName ==> " + commandName);
             return commands.get("noCommand");
         }

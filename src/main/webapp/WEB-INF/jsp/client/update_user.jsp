@@ -1,15 +1,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <html>
 <head>
     <title>Edit profile</title>
-    <link href="stylesheet.css" rel="stylesheet" type="text/css">
+    <link href="style/stylesheet.css" rel="stylesheet" type="text/css">
 </head>
+
 <body>
 <div class="wrapper">
-
     <div class="header">
         <div class="header-section">
             <ul>
@@ -51,7 +51,6 @@
     </div>
 
     <div class="content">
-
         <form action="controller" method="post">
             <div class="client-info">
                 <table class="client-table">
@@ -74,8 +73,11 @@
                         <th><fmt:message key='login_page_gender'/></th>
                         <td>
                             <select name="gender">
-                                <option selected value="MALE">Male</option>
-                                <option value="FEMALE">Female</option>
+                                <c:set var="gender" value="${user.gender}"/>
+                                <c:set var="selectedMale" value="${gender == 'MALE' ? 'selected' : '' }"/>
+                                <c:set var="selectedFemale" value="${gender == 'FEMALE' ? 'selected' : '' }"/>
+                                <option ${selectedMale} value="MALE"><fmt:message key='male'/></option>
+                                <option ${selectedFemale} value="FEMALE"><fmt:message key='female'/></option>
                             </select>
                         </td>
                     </tr>

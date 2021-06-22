@@ -3,15 +3,13 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html>
-
 <head>
     <title>Client profile</title>
-    <link href="stylesheet.css" rel="stylesheet" type="text/css">
+    <link href="style/stylesheet.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
 <div class="wrapper">
-
     <div class="header">
         <div class="header-section">
             <ul>
@@ -72,7 +70,7 @@
                 </tr>
                 <tr class="admin-profile-gender">
                     <th><fmt:message key='login_page_gender'/></th>
-                    <td>${user.gender}</td>
+                    <td><fmt:message key='${user.gender}'/></td>
                 </tr>
             </table>
         </div>

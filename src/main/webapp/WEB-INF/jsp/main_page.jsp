@@ -1,17 +1,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html>
 <head>
     <title>Periodicals</title>
-    <link href="stylesheet.css" rel="stylesheet" type="text/css">
+    <link href="style/stylesheet.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
 <div class="wrapper">
-
     <div class="header">
         <div class="header-section">
             <ul>
@@ -24,7 +22,6 @@
                 <li>
                     <div class="header-select-section">
                         <form class="header-item header-button header-select" action="changeLocale.jsp" method="get">
-
                             <fmt:message key="settings_jsp.label.set_locale"/>:
                             <div class="header-select-item">
                                 <select name="locale">
@@ -76,7 +73,6 @@
                             <div class="header-select-item">
                                 <input type="submit" value="<fmt:message key='main_page.search'/>"/>
                             </div>
-
                         </form>
                     </div>
                 </li>
@@ -102,7 +98,6 @@
 
     <div class="content">
         <c:forEach var="num" items="${periodicals}">
-
             <div class="periodical-form">
                 <table class="periodical-table">
                     <tr>
@@ -134,7 +129,6 @@
                             </div>
                         </th>
                     </tr>
-
                 </table>
             </div>
         </c:forEach>

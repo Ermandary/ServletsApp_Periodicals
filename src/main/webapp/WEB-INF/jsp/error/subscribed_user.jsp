@@ -3,11 +3,11 @@
 
 <html>
 <head>
-    <title>Login</title>
+    <title>Error</title>
     <link href="style/stylesheet.css" rel="stylesheet" type="text/css">
 </head>
-
 <body>
+
 <div class="wrapper">
     <div class="header">
         <div class="header-section">
@@ -20,21 +20,28 @@
                 </li>
             </ul>
         </div>
+        <div class="header-section">
+            <ul>
+                <li>
+                    <form class="header-item header-button" action="controller" method="get">
+                        <input type="hidden" name="command" value="login"/>
+                        <input type="submit" value="<fmt:message key='login'/>"/>
+                    </form>
+                </li>
+                <li>
+                    <form class="header-item header-button" action="controller" method="get">
+                        <input type="hidden" name="command" value="signup"/>
+                        <input type="submit" value="<fmt:message key='signup'/>"/>
+                    </form>
+                </li>
+            </ul>
+        </div>
     </div>
 
     <div class="content">
-        <form action="controller" method="post">
-            <input type="hidden" name="command" value="login"/>
-            <div class="login-form">
-                <h1><fmt:message key="login"/></h1>
-                <div class="login-input">
-                    <input type="email" name="email" placeholder="<fmt:message key='email'/>" required/><br/>
-                    <input type="password" name="password" placeholder="<fmt:message key='password'/>" required/><br/>
-                    <input type="submit" value="<fmt:message key='signin'/>"/>
-                </div>
-                <a href="signup.jsp" class="signup"><fmt:message key='signup'/></a>
-            </div>
-        </form>
+        <div class="error-info">
+            <h2><fmt:message key='error-subscribed_user'/></h2>
+        </div>
     </div>
 
     <div class="footer">

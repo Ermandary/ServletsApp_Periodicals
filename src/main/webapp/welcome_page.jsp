@@ -1,16 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html>
 <head>
     <title>Welcome page</title>
-    <link href="stylesheet.css" rel="stylesheet" type="text/css">
+    <link href="style/stylesheet.css" rel="stylesheet" type="text/css">
 </head>
+
 <body>
-
 <div class="wrapper">
-
     <div class="header">
         <div class="header-section">
             <ul>

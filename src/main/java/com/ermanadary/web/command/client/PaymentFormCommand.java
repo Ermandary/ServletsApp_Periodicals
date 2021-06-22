@@ -87,9 +87,6 @@ public class PaymentFormCommand implements Command {
     }
 
     private boolean checkBalance(BigDecimal userBalance, BigDecimal totalPrice) {
-        if (userBalance.compareTo(totalPrice) < 0) {
-            return false;
-        }
-        return true;
+        return userBalance.compareTo(totalPrice) >= 0;
     }
 }

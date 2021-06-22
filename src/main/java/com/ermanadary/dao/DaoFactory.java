@@ -7,20 +7,19 @@ import com.ermanadary.dao.impl.mysql.MySqlUserDao;
 
 public class DaoFactory {
 
-    public static PaymentDao createPaymentDao(){
+    public static PaymentDao createPaymentDao() {
         return new MySqlPaymentDao();
-    };
+    }
 
-    public static PeriodicalDao createPeriodicalDao(){
+    public static PeriodicalDao createPeriodicalDao() {
         return new MySqlPeriodicalDao();
-    };
+    }
 
-    public static SubscriptionDao createSubscriptionDao(){
+    public static SubscriptionDao createSubscriptionDao() {
         return new MySqlSubscriptionDao();
-    };
+    }
 
-    public static UserDao createUserDao(){
+    public static UserDao createUserDao() {
         return new MySqlUserDao();
-    };
-
+    }
 }

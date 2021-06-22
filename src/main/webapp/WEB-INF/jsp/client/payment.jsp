@@ -1,22 +1,14 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Neftyanik
-  Date: 02.06.2021
-  Time: 16:18
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html>
 <head>
     <title>Subscribe</title>
-    <link href="stylesheet.css" rel="stylesheet" type="text/css">
+    <link href="style/stylesheet.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
 <div class="wrapper">
-
     <div class="header">
         <div class="header-section">
             <ul>
@@ -79,11 +71,11 @@
                 </tr>
                 <tr>
                     <th><fmt:message key='frequency'/></th>
-                    <td>${periodical.frequency}</td>
+                    <td><fmt:message key='${periodical.frequency}'/></td>
                 </tr>
                 <tr>
                     <th><fmt:message key='subscription_period'/></th>
-                    <td>${subscriptionPeriod}</td>
+                    <td><fmt:message key='${subscriptionPeriod}'/></td>
                 </tr>
                 <tr>
                     <th><fmt:message key='month_price'/></th>

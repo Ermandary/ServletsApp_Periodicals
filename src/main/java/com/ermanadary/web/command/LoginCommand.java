@@ -38,7 +38,7 @@ public class LoginCommand implements Command {
         log.trace("user ==> " + user);
 
         if (user == null || !password.equals(user.getPassword())) {
-            log.warn("user is null или неверный пароль, возвращаем на страницу регистрации");
+            log.warn("user is null or wrong password");
             return Path.PAGE_LOGIN;
         }
 

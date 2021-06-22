@@ -1,14 +1,13 @@
 package com.ermanadary.web.command;
 
 import com.ermanadary.DBException;
-import com.ermanadary.web.Path;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class NoCommand implements Command{
+public class NoCommand implements Command {
 
     private static final Logger log = LogManager.getLogger(NoCommand.class);
 
@@ -21,6 +20,8 @@ public class NoCommand implements Command{
         log.error("Set the request attribute: errorMessage --> " + errorMessage);
 
         log.debug("Command finished");
-        return Path.PAGE_ERROR;
+
+        log.error(errorMessage);
+        throw new DBException(errorMessage);
     }
 }

@@ -1,11 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <html>
 <head>
     <title>Sign up</title>
-    <link href="stylesheet.css" rel="stylesheet" type="text/css">
+    <link href="style/stylesheet.css" rel="stylesheet" type="text/css">
 </head>
+
 <body>
 <div class="wrapper">
     <div class="header">
@@ -19,7 +20,6 @@
                 </li>
             </ul>
         </div>
-
         <div class="header-section">
             <ul>
                 <li>
@@ -32,11 +32,9 @@
         </div>
     </div>
 
-
     <div class="content">
         <form action="controller" method="post">
             <input type="hidden" name="command" value="signup"/>
-
             <div class="signup-form">
                 <h1><fmt:message key='signup'/></h1>
                 <div class="signup-input">
@@ -65,6 +63,5 @@
         </div>
     </div>
 </div>
-
 </body>
-
+</html>

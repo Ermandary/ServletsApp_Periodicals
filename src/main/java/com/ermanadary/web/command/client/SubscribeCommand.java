@@ -30,8 +30,8 @@ public class SubscribeCommand implements Command {
         long userId = user.getId();
 
         if (DaoFactory.createSubscriptionDao().isSubscribed(userId, periodicalId)) {
-            log.warn("user is already subscribed, forward to error page");
-            return Path.PAGE_ERROR;
+            log.debug("user is already subscribed, forward to error page");
+            return Path.PAGE_SUBSCRIBED_USER;
         }
 
         session.setAttribute("periodical", DaoFactory.createPeriodicalDao().findPeriodicalById(periodicalId));

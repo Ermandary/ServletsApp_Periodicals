@@ -3,7 +3,6 @@ package com.ermanadary;
 import com.ermanadary.web.Path;
 import com.ermanadary.web.command.Command;
 import com.ermanadary.web.command.CommandContainer;
-import com.ermanadary.web.listener.ContextListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

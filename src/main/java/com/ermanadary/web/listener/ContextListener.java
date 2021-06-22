@@ -1,9 +1,6 @@
 package com.ermanadary.web.listener;
 
 import com.ermanadary.dao.DBManager;
-import com.ermanadary.web.command.UpdateUserCommand;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -46,10 +43,10 @@ public class ContextListener implements ServletContextListener {
         // obtain file name with locales descriptions
         String localesFileName = context.getInitParameter("locales");
 
-        // obtain reale path on server
+        // obtain real path on server
         String localesFileRealPath = context.getRealPath(localesFileName);
 
-        // locad descriptions
+        // load descriptions
         Properties locales = new Properties();
         try {
             locales.load(new FileInputStream(localesFileRealPath));

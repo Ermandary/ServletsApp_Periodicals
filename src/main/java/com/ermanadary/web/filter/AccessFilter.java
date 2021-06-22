@@ -76,13 +76,13 @@ public class AccessFilter implements Filter {
 
         HttpSession session = request.getSession(false);
 
-        if(session == null) {
+        if (session == null) {
             log.debug("session is null");
             return false;
         }
 
         User user = (User) session.getAttribute("user");
-        if(user == null) {
+        if (user == null) {
             log.debug("user is null");
             return false;
         }

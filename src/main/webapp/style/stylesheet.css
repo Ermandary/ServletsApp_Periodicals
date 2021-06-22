@@ -1,5 +1,5 @@
 body {
-    background-image: url(resources/images/back.jpg);
+    background-image: url(../resources/images/back.jpg);
     height: 100%;
     margin: 0;
     padding: 0;
@@ -290,10 +290,8 @@ body {
 
 .periodical-form {
     max-width: 1170px;
-    margin: auto;
     padding: 0 15px;
-    margin-top: 3rem;
-    margin-bottom: 3rem;
+    margin: 3rem auto;
 }
 
 .periodical-table {
@@ -640,9 +638,6 @@ table.periodical-table tr:nth-child(6) {
 
 
 
-
-
-
 .subscription-table {
     margin: 100px auto;
     min-width: 500px;
@@ -667,10 +662,6 @@ table.periodical-table tr:nth-child(6) {
     color: black;
     background: white;
 }
-
-
-
-
 
 
 
@@ -762,17 +753,6 @@ table.periodical-table tr:nth-child(6) {
     margin-bottom: 20px;
     margin-top: 20px;
 }
-
-
-
-
-
-
-
-/*gfgg*/
-
-
-
 
 
 

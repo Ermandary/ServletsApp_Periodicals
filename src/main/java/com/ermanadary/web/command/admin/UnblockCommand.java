@@ -19,7 +19,6 @@ public class UnblockCommand implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DBException {
         log.debug("UnblockCommand starts");
-        HttpSession session = req.getSession();
 
         long userId = Long.parseLong(req.getParameter("userId"));
         log.trace("userId ==> " + userId);

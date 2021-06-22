@@ -40,11 +40,24 @@ public class AddPeriodicalCommand implements Command {
         String frequency = req.getParameter("frequency");
         log.trace("frequency ==> " + frequency);
 
-        BigDecimal price = new BigDecimal(Integer.parseInt(req.getParameter("periodicalPrice")));
-        log.trace("price ==> " + price);
-
         String description = req.getParameter("periodicalDescription");
         log.trace("description ==> " + description);
+
+        String priceStr = req.getParameter("periodicalPrice");
+        if (periodicalName == null || periodicalName.isEmpty() || periodicalType == null || periodicalType.isEmpty()
+                || publisher == null || publisher.isEmpty() || frequency == null || frequency.isEmpty()
+                || priceStr == null || priceStr.isEmpty() || description == null || description.isEmpty()) {
+            return Path.COMMAND_ADD_PERIODICAL;
+        }
+
+        BigDecimal price;
+
+        try {
+            price = new BigDecimal(Integer.parseInt(priceStr));
+        } catch (NumberFormatException ex) {
+            return Path.COMMAND_ADD_PERIODICAL;
+        }
+        log.trace("price ==> " + price);
 
         Periodical periodical = new Periodical();
         periodical.setName(periodicalName);

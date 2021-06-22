@@ -1,15 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <html>
 <head>
     <title>Edit periodical</title>
-    <link href="stylesheet.css" rel="stylesheet" type="text/css">
+    <link href="style/stylesheet.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <div class="wrapper">
-
     <div class="header">
         <div class="header-section">
             <ul>
@@ -50,9 +49,7 @@
         </div>
     </div>
 
-
     <div class="content">
-
         <form action="controller" method="post">
             <div class="client-info">
                 <table class="client-table">
@@ -69,9 +66,15 @@
                         <th><fmt:message key='type'/></th>
                         <td>
                             <select name="periodicalType">
-                                <option selected value="Comic">Comic</option>
-                                <option value="Magazine">Magazine</option>
-                                <option value="Newspaper">Newspaper</option>
+                                <c:set var="periodicalType" value="${periodical.type}"/>
+                                <c:set var="selectedComic" value="${periodicalType == 'Comic' ? 'selected' : '' }"/>
+                                <c:set var="selectedMagazine"
+                                       value="${periodicalType == 'Magazine' ? 'selected' : '' }"/>
+                                <c:set var="selectedNewspaper"
+                                       value="${periodicalType == 'Newspaper' ? 'selected' : '' }"/>
+                                <option ${selectedComic} value="Comic"><fmt:message key='Comic'/></option>
+                                <option ${selectedMagazine} value="Magazine"><fmt:message key='Magazine'/></option>
+                                <option ${selectedNewspaper} value="Newspaper"><fmt:message key='Newspaper'/></option>
                             </select>
                         </td>
                     </tr>
@@ -85,9 +88,13 @@
                         <th><fmt:message key='frequency'/></th>
                         <td>
                             <select name="frequency">
-                                <option selected value="Daily">Daily</option>
-                                <option value="Weekly">Weekly</option>
-                                <option value="Monthly">Monthly</option>
+                                <c:set var="frequency" value="${periodical.frequency}"/>
+                                <c:set var="selectedDaily" value="${frequency == 'Daily' ? 'selected' : '' }"/>
+                                <c:set var="selectedWeekly" value="${frequency == 'Weekly' ? 'selected' : '' }"/>
+                                <c:set var="selectedMonthly" value="${frequency == 'Monthly' ? 'selected' : '' }"/>
+                                <option ${selectedDaily} value="Daily"><fmt:message key='Daily'/></option>
+                                <option ${selectedWeekly} value="Weekly"><fmt:message key='Weekly'/></option>
+                                <option ${selectedMonthly} value="Monthly"><fmt:message key='Monthly'/></option>
                             </select>
                         </td>
                     </tr>
@@ -105,7 +112,7 @@
                     </tr>
                     <tr>
                         <th colspan="2">
-                            <input type="submit" value="<fmt:message key='edit_periodical'/>"/>
+                            <input type="submit" value="<fmt:message key='main_page.save'/>"/>
                         </th>
                     </tr>
                 </table>

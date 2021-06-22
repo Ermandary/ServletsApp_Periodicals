@@ -1,17 +1,15 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html>
 <head>
     <title>Periodicals</title>
-    <link href="stylesheet.css" rel="stylesheet" type="text/css">
+    <link href="style/stylesheet.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
-
 <div class="wrapper">
-
     <div class="header">
         <div class="header-section">
             <ul>
@@ -117,7 +115,6 @@
 
     <div class="content">
         <c:forEach var="num" items="${periodicals}">
-
             <div class="periodical-form">
                 <table class="periodical-table">
                     <tr>
@@ -125,7 +122,7 @@
                     </tr>
                     <tr>
                         <th class="other"><fmt:message key='type'/></th>
-                        <td>${num.type}</td>
+                        <td><fmt:message key='${num.type}'/></td>
                     </tr>
                     <tr>
                         <th class="other"><fmt:message key='publisher'/></th>
@@ -133,7 +130,7 @@
                     </tr>
                     <tr>
                         <th class="other"><fmt:message key='frequency'/></th>
-                        <td>${num.frequency}</td>
+                        <td><fmt:message key='${num.frequency}'/></td>
                     </tr>
                     <tr>
                         <th class="other"><fmt:message key='month_price'/></th>
@@ -150,7 +147,6 @@
                             </div>
                         </th>
                     </tr>
-
                 </table>
             </div>
         </c:forEach>

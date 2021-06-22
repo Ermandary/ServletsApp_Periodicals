@@ -19,7 +19,6 @@ public class BlockCommand implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DBException {
         log.debug("BlockCommand starts");
-        HttpSession session = req.getSession();
 
         long userId = Long.parseLong(req.getParameter("userId"));
 

@@ -22,6 +22,7 @@ public final class Path {
 
     public final static String PAGE_ERROR = "/WEB-INF/jsp/error/error.jsp";
     public final static String PAGE_BLOCKED_USER = "/WEB-INF/jsp/error/blocked_user.jsp";
+    public final static String PAGE_SUBSCRIBED_USER = "/WEB-INF/jsp/error/subscribed_user.jsp";
     public final static String PAGE_ERROR_ACCESS = "/WEB-INF/jsp/error/error_access.jsp";
 
     public final static String COMMAND_CLIENT_PAGE = "/controller?command=clientPage";
@@ -31,4 +32,5 @@ public final class Path {
     public final static String COMMAND_PAYMENT = "/controller?command=payment";
     public final static String COMMAND_CLIENT_PROFILE = "/controller?command=clientProfile";
     public final static String COMMAND_BLOCKED_USER = "/controller?command=blockedUser";
+    public final static String COMMAND_ADD_PERIODICAL = "/controller?command=addPeriodical";
 }

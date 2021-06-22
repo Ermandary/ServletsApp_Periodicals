@@ -7,12 +7,11 @@
 
 <head>
     <title>Client profile</title>
-    <link href="stylesheet.css" rel="stylesheet" type="text/css">
+    <link href="style/stylesheet.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
 <div class="wrapper">
-
     <div class="header">
         <div class="header-section">
             <ul>
@@ -75,21 +74,19 @@
                             <form class="users-block" action="controller" method="get">
                                 <input type="hidden" name="command" value="block"/>
                                 <input type="hidden" name="userId" value="${num.id}"/>
-                                <p><input type="submit" value="block"></p>
+                                <p><input type="submit" value="<fmt:message key='block'/>"></p>
                             </form>
                             <form class="users-unblock" action="controller" method="get">
                                 <input type="hidden" name="command" value="unblock"/>
                                 <input type="hidden" name="userId" value="${num.id}"/>
-                                <p><input type="submit" value="unblock"></p>
+                                <p><input type="submit" value="<fmt:message key='unblock'/>"></p>
                             </form>
                         </td>
                     </tr>
                 </c:forEach>
             </table>
         </div>
-
     </div>
-
 
     <div class="footer">
         <div class="footer-info">

@@ -1,22 +1,14 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Neftyanik
-  Date: 02.06.2021
-  Time: 15:17
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html>
 <head>
     <title>Subscribe</title>
-    <link href="stylesheet.css" rel="stylesheet" type="text/css">
+    <link href="style/stylesheet.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
 <div class="wrapper">
-
     <div class="header">
         <div class="header-section">
             <ul>
@@ -77,7 +69,7 @@
                 </tr>
                 <tr>
                     <th><fmt:message key='type'/></th>
-                    <td>${periodical.type}</td>
+                    <td><fmt:message key='${periodical.type}'/></td>
                 </tr>
                 <tr>
                     <th><fmt:message key='publisher'/></th>
@@ -85,7 +77,7 @@
                 </tr>
                 <tr>
                     <th><fmt:message key='frequency'/></th>
-                    <td>${periodical.frequency}</td>
+                    <td><fmt:message key='${periodical.frequency}'/></td>
                 </tr>
                 <tr>
                     <th><fmt:message key='month_price'/></th>
@@ -96,7 +88,7 @@
                         <th><fmt:message key='subscription_period'/></th>
                         <td>
                             <select name="subscriptionType">
-                                <option selected value="ONE_MONTH"><fmt:message key='one_months'/></option>
+                                <option selected value="ONE_MONTH"><fmt:message key='one_month'/></option>
                                 <option value="THREE_MONTHS"><fmt:message key='three_months'/></option>
                                 <option value="SIX_MONTHS"><fmt:message key='six_months'/></option>
                                 <option value="ONE_YEAR"><fmt:message key='one_year'/></option>
@@ -115,10 +107,7 @@
 
                 </form>
             </table>
-
-
         </div>
-
     </div>
 
     <div class="footer">
