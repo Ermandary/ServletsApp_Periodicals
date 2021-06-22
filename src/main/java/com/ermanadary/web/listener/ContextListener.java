@@ -32,7 +32,7 @@ public class ContextListener implements ServletContextListener {
     private void initLogger(ServletContext ctx) {
         System.out.println("init logger");
 
-        String path = ctx.getRealPath("WEB-INF/app.log");
+        String path = ctx.getRealPath("WEB-INF/periodicals.log");
         System.out.println("path ==> " + path);
         System.setProperty("fileName", path);
 
